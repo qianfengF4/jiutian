@@ -29,6 +29,12 @@ public class MessageController {
         List<Message> messageList =  messageService.selectMessageAll();
         return ResultVo.setOk(messageList);
     }
+    public ResultVo messageshow2 () {
+
+        List<Message> messageList =  messageService.selectMessageAll();
+        return ResultVo.setOk(messageList);
+    }
+
 
 
 
