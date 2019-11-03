@@ -263,6 +263,49 @@ public class UserController {
 //        return "回到了";
 //        //return userService.queryMenu();
 //    }
+@PostMapping("/api/user/login.do")
+@ApiOperation(value = "登录")
+public ResultVo login(UserDto userDto){
+
+    System.out.println(userDto.getUsername());
+
+    return userService.login(userDto);
+
+}
+
+
+    @PostMapping("/api/send/message.do")
+    @ApiOperation(value = "发送短信验证码")
+    public ResultVo code(String phoneNumber){
+
+        SmsUtils.setNewcode();
+
+        int newcode = SmsUtils.getNewcode();
+
+        String code = Integer.toString(newcode);
+
+        try {
+
+            SendSmsResponse response = SmsUtils.sendSms(phoneNumber, code);
+
+        } catch (ClientException e) {
+
+            e.printStackTrace();
+
+            return ResultVo.setError("发送失败");
+
+        }
+
+        return ResultVo.setOk(code);
+    }
+
+    @PostMapping("/api/user/register.do")
+    @ApiOperation(value = "用户注册")
+    public ResultVo register(User user) {
+
+        return userService.register(user);
+
+    }
 
 
 }

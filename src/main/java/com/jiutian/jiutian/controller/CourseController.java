@@ -100,5 +100,52 @@ public class CourseController {
         return courseService.selectCourseById(id) ;
     }
 
+    @PostMapping("/api/course/selectCourseByLearnSessionIdDesc")
+    @ApiOperation(value = "最热降序根据学段id展示课程信息")
+    public ResultVo selectCourseByLearnSessionIdDesc(Model model,Integer learnSessionId) {
+
+        List<Course> courseList4 = courseService.selectCourseByLearnSessionIdDesc(learnSessionId, model);
+
+        System.out.println("最热降序根据学段id展示课程信息：" + courseList4 );
+
+        if (courseList4 != null) {
+
+            return ResultVo.setOk("OK");
+        }
+        return ResultVo.setError("失败");
+
+    }
+
+    @PostMapping("/api/course/selectCourseByTimeDesc")
+    @ApiOperation(value = "根据创建时间降序展示课程信息")
+    public ResultVo selectCourseByTimeDesc(Model model) {
+
+        List<Course> courseList5 = courseService.selectCourseByTimeDesc(model);
+
+        System.out.println("根据创建时间降序展示课程信息：" + courseList5 );
+
+        if (courseList5 != null) {
+
+            return ResultVo.setOk("OK");
+        }
+        return ResultVo.setError("失败");
+
+    }
+
+    @PostMapping("/api/course/selectCourseBySessionIdTimeDesc")
+    @ApiOperation(value = "根据学段id选出来之后进行时间降序展示课程信息")
+    public ResultVo selectCourseBySessionIdTimeDesc(Integer learnSessionId,Model model) {
+
+        List<Course> courseList6 = courseService.selectCourseByLearnSessionIdTimeDesc(learnSessionId,model);
+
+        System.out.println("根据学段id选出来之后进行时间降序展示课程信息：" + courseList6 );
+
+        if (courseList6 != null) {
+
+            return ResultVo.setOk("OK");
+        }
+        return ResultVo.setError("失败");
+
+    }
 
 }

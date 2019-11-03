@@ -60,4 +60,16 @@ public interface CourseMapper {
 
     @Select("select c.title,c.play_number,c.detail,c.creat_data,g.grade_name,p.project_name from course c,grade g,project p where c.grade_id = g.id and c.project_id = p.id and c.id =#{id}")
     Video selectCourseById(int id);
+
+    @Select("select * from jiutian.course where learn_session_id = #{learnSessionId} order by play_number DESC")
+    List <Course> selectCourseByLearnSessionIdDesc(Integer learnSessionId,Model model);
+
+    @Select("select * from jiutian.course order by creat_data DESC ")
+    List <Course> selectCourseByTimeDesc(Model model);
+
+    @Select("select * from jiutian.course where learn_session_id = #{learnSessionId} order by creat_data DESC ")
+    List <Course> selectCourseByLearnSessionIdTimeDesc(Integer learnSessionId,Model model);
+
+
+
 }

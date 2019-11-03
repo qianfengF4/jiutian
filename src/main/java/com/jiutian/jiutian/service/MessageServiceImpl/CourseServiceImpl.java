@@ -119,4 +119,37 @@ public class CourseServiceImpl implements CourseService {
         Video video = courseMapper.selectCourseById(id);
         return ResultVo.setOk(video);
     }
+
+
+
+    @Override
+    public List<Course> selectCourseByLearnSessionIdDesc(Integer learnSessionId, Model model) {
+
+        List<Course> courseListBySessionIdDesc = getBaseMapper().selectCourseByLearnSessionIdDesc(learnSessionId, model);
+
+        model.addAttribute("courseListBySessionIdDesc",courseListBySessionIdDesc);
+
+        return courseListBySessionIdDesc;
+    }
+
+    @Override
+    public List<Course> selectCourseByTimeDesc(Model model) {
+
+        List<Course> courseListByTimeDesc = getBaseMapper().selectCourseByTimeDesc(model);
+
+        model.addAttribute("courseListBySTimeDesc",courseListByTimeDesc);
+
+        return courseListByTimeDesc;
+    }
+
+    @Override
+    public List<Course> selectCourseByLearnSessionIdTimeDesc(Integer learnSessionId, Model model) {
+
+        List<Course> selectCourseByLearnSessionIdTimeDesc = getBaseMapper().selectCourseByLearnSessionIdTimeDesc(learnSessionId, model);
+
+        model.addAttribute("selectCourseByLearnSessionIdTimeDesc",selectCourseByLearnSessionIdTimeDesc);
+
+        return selectCourseByLearnSessionIdTimeDesc;
+    }
+
 }

@@ -33,4 +33,11 @@ public class User {
     String city;
     List<ProjectPart> coursePart;
 
+    private Integer projectId;
+    private Integer learningSessionId;
+    private Integer flag;
+    private Integer roleId;
+    private Integer classId;
+    private String image = "/media/image/20141219030221_QCNMA.jpg";
+
 }

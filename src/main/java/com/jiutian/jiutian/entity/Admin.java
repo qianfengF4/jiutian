@@ -13,4 +13,8 @@ public class Admin {
     private int roleid;
     private String username;
     private String password;
+    private String image = "/media/image/20141219030221_QCNMA.jpg";
+    private int userId;
+
+    private String userName;
 }

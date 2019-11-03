@@ -21,5 +21,7 @@ public class Course {
     private String image;
     private int time;
     private int volume;
+    private Date creatData;
+    private String videoUrl;
 }
 

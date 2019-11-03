@@ -41,15 +41,15 @@
     <div style="width:980px;height: 567px;padding-top: 40px;padding-bottom: 40px;margin-bottom: 30px;border-left: 1px;border-right: 1px;border: #EEEEEE">
         <form class="form-horizontal">
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">手机号码</label>
+                <label for="inputPhone" class="col-sm-2 control-label">手机号码</label>
                 <div class="col-sm-4">
-                    <input type="email" class="form-control" id="inputEmail3" >
+                    <input type="text" class="form-control" id="inputPhone" >
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">图形验证码</label>
+                <label for="inputCode" class="col-sm-2 control-label">图形验证码</label>
                 <div class="col-sm-4">
-                    <input type="password" class="form-control" id="yzm" >
+                    <input type="text" class="form-control" id="inputCode" >
                 </div>
                 <div class="col-md-3">
                     <div >
@@ -71,17 +71,17 @@
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">短信验证码</label>
                 <div class="col-sm-4">
-                    <input type="password" class="form-control" id="inputPassword5" >
+                    <input type="text"  class="form-control" id="inputPhoneCode" >
                 </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-default btn-lg active btn-sm">免费获取验证码</button>
+                    <button type="button" onclick="putCode()" class="btn btn-default btn-lg active btn-sm">免费获取验证码</button>
                 </div>
             </div>
 
             <div class="form-group">
-                <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                <label for="inputPassword" class="col-sm-2 control-label">密码</label>
                 <div class="col-sm-4">
-                    <input type="password" class="form-control" id="inputPassword6" >
+                    <input type="password" class="form-control" id="inputPassword" >
                 </div>
             </div>
 
@@ -95,7 +95,7 @@
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">真实姓名</label>
                 <div class="col-sm-4">
-                    <input type="password" class="form-control" id="inputPassword3" >
+                    <input type="text" class="form-control" id="inputPassword3" >
                 </div>
             </div>
 
@@ -155,7 +155,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-warning">提交注册</button>
+                    <button type="submit" class="btn btn-warning" onclick="submitRegister()">提交注册</button>
                 </div>
             </div>
 
@@ -167,7 +167,56 @@
 </div>
 </div>
 </body>
-<script>
+<script type="application/javascript">
+
     verifyCode = new GVerify("v_container");
+
+    function submitRegister() {
+
+        /* 获取验证码 */
+        var verifyCode = new GVerify("v_container");
+        /* 获取用户输入的验证码 */
+        var imgCode = $("#inputCode").val();
+        /* 获取用户输入的手机号 */
+        var phoneNum = $("#inputPhone").val();
+        /* 获取用户输入短信验证码 */
+        var phoneCode = $("#inputPhoneCode").val();
+        /* 获取用户输入的密码 */
+        var password = $("#inputPassword").val();
+        /* 比较 */
+        if (verifyCode.validate(imgCode)) {
+
+            if (phoneCode == reCode) {
+
+                $.ajax({
+                    url: "/api/user/register.do",
+                    data: {"phoneNumber": phoneNum, "password": password},
+                    type:"post",
+                    success: function(data){
+                        if (data.code==200){
+                            location.href = "login.html";
+                        } else {
+                            alert("注册失败！");
+                        }
+                    }
+                });
+            } else {
+                alert("注册失败")
+            }
+        }
+    }
+    function putCode() {
+
+        var phoneNum = $("#inputPhone").val();
+
+        $.post("/api/send/message.do",{"phoneNumber":phoneNum},function (data) {
+
+            /* 全局变量 */
+             reCode=data.data;
+        })
+
+    }
+    
+    
 </script>
 </html>

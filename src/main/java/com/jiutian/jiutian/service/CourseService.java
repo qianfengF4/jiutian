@@ -28,4 +28,11 @@ public interface CourseService {
     ResultVo selectAllListBynum(int num);
 
     ResultVo selectCourseById(int id);
+
+    List <Course> selectCourseByLearnSessionIdDesc(Integer learnSessionId,Model model);
+
+    List <Course> selectCourseByTimeDesc(Model model);
+
+    List <Course> selectCourseByLearnSessionIdTimeDesc(Integer learnSessionId,Model model);
+
 }

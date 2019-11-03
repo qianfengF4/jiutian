@@ -31,4 +31,11 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     @Update("update admin set password=#{password} where id=#{id} ")
     void updataPasswordByAdminId(int id, String password);
+
+
+    @Insert("insert into jiutian.admin(username, password, image, userid, roleid) VALUES " +
+            "(#{mname}, #{password}, #{image}," +
+            " #{id}, #{roleId})")
+    @ResultType(int.class)
+    int savaAdmin(User user);
 }
