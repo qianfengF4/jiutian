@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- 导入css文件 -->
+		<!-- 图标 -->
+		<link rel="shortcut icon" type="image/x-icon" href="../brand.ico"/>
+		<!-- 初始化样式 -->
+		<link rel="stylesheet" href="media/css/base.css">
+		<!-- bootstrap样式 -->
+		<link rel="stylesheet" type="text/css" href="../media/lib/bootstrap/css/bootstrap.css"/>
+		<!-- html兼容文件 -->
+		<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+				<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+				<!--[if lt IE 9]>
+		      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+		      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+
+		<!-- 引入js文件 -->
+		<!-- jq -->
+		<script src="../media/lib/jquery/jquery.min.js"></script>
+		<script src="../media/lib/bootstrap/js/bootstrap.min.js"></script>
+		<script src="../media/js/vue.min.js"></script>
+		    <![endif]-->
+
+		<!-- 引入本页css -->
+		<link rel="stylesheet" type="text/css" href="../media/css/personal_center.css"/>
+		<title>个人中心</title>
+	</head>
+	<body>
+		<div class="head">
+			<nav class="mynavbar navbar navbar-default">
+				<!-- 流动容器 -->
+			  <div class="container-fluid">
+			    <!-- Brand and toggle get grouped for better mobile display -->
+			    <div class="mynavbar-header navbar-header">
+					<!-- 手风琴样式 -->
+			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+			        <span class="sr-only">Toggle navigation</span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			        <span class="icon-bar"></span>
+			      </button>
+			      <a class=" navbar-brand" href="#"><img src="../brand.ico" ><span >广东教育视频网<br>http://www.gdedu.tv</span></a>
+			    </div>
+			
+			    <!-- Collect the nav links, forms, and other content for toggling -->
+			    <div class="mycollapse collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			      <ul class="mynav nav navbar-nav">
+						<li><a href="###"><span>首页</span></a></li>
+						<li><a href="###"><span>兴趣课堂</span></a></li>
+						<li><a href="###"><span>点课吧</span></a></li>
+						<li><a href="###"><span>中高考微课</span></a></li>
+						<li><a href="###"><span>同步课程</span></a></li>
+						<li><a href="###"><span>亲子视频</span></a></li>
+						<li><a href="###"><span>校园影视</span></a></li>
+						<li><a href="###"><span>一师一优客<br>一课一名师</span></a></li>
+						<li><a href="###"><span>更多应用</span></a></li>
+			      </ul>
+				  <ul class="myuser mynav nav navbar-nav navbar-right">
+				  		<li><a href="###"><span class="glyphicon glyphicon-search glyphicon glyphicon-user" aria-hidden="true"> 个人中心</span></a></li>
+				  </ul>
+			      <form class="navbar-form navbar-right">
+			        <div class="form-group">
+			          <input type="text" class="form-control " placeholder="搜索"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+			        </div>
+			      </form>
+
+			    </div><!-- /.navbar-collapse -->
+			  </div><!-- /.container-fluid -->
+			</nav>
+		</div>
+		<div class="main">
+			<div class="container">
+				<div class="row">
+				  <div class="myleft1 col-xs-3">
+					  <ul>
+					  	<li><img src="../media/img/people.png" ></li>
+						<li>冰哥最帅</li>
+						<hr >
+						<li>
+							<ul>
+								<b>我的课堂</b>
+								<li>我的点课</li>
+								<li>我的收藏</li>
+								<li>我的消息</li>
+								<li>历史记录</li>
+							</ul>
+						</li>
+						<hr >
+						<li>
+							<ul>
+								<b>个人设置</b>
+								<li>个人质料</li>
+								<li ><a href="update_password.html">修改密码</a></li>
+							</ul>
+						</li>
+						<hr >
+						<li>
+							<ul>
+								<b>我的订购</b>
+								<li>订购详情</li>
+							</ul>
+						</li>													
+					  </ul>
+					  
+				  </div>
+				  <div class="myright col-xs-9">
+					  <ul>
+					  	<li><b>基本信息</b></li>
+						<hr>
+						<li>
+							<div class="xx">
+								 <form id="upload_form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/user/upLoadImage" >
+								<p>
+									仅支持JPG、JPRG、PNG格式,文件小于4M
+									<br>
+									<b>(使用高质量图片，可生成高清图像)</b>
+									<br>
+									<input type="file" onclick="inputImage()" class="glyphicon glyphicon-plus" aria-hidden="true"></input>
+									<input style="margin-top: 10px;margin-left: 20px" type="submit" value="上传">
+								</p>
+								</form>
+								<!-- 冰：添加图片 -->
+
+								<br>
+							</div>
+						</li>
+						<li>
+							<div  class="form" id = "info" >
+								<ul>
+									<!-- 冰 -->
+									<input type="hidden" id ="id" name="id" v-model="obj.id">
+									<li  >真实姓名：<input type="text" id="realName" name="realName" v-model="obj.realName"/></li>
+									<li>账&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：<input disabled="disabled" name="mname" id="mname" v-model="obj.mname"></li>
+									<li>联系方式：<input type="text" id="phone" name = "phoneNum" v-model="obj.phoneNum" /></li>
+									<li v-if="obj.sex=='男'">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<input type="radio" name="sex" id="sex" value="男" checked="checked" />男
+										<input @click="changeSex2" type="radio" name="sex" id="sex2" value="女" />女</li>
+									<li v-if="obj.sex=='女'">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<input @click="changeSex" type="radio" name="sex" id="sex3" value="男" checked="checked" />男
+										<input type="radio" name="sex" id="sex4" value="女" checked="checked"/>女</li>
+									<li >
+<!--									<li v-if="obj.sex === '女'">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：<input type="radio" name="性别" id="sex" value="1" checked="checked" />男-->
+<!--										<input type="radio" name="性别" id="sex2" value="0" />女</li>-->
+<!--									<li>-->
+										所属区域：
+										    <select id = "d2"  v-model="provinceId" @change="getCity(provinceId)">
+										        <option v-for="ob in province" :key="ob.id"  :value="ob.id">{{ob.name}}</option>
+<!--										        <option>是</option>-->
+<!--										        <option selected="selected">帅哥</option>-->
+<!--										        <option>嘛</option>-->
+										    </select>
+<!--										<select id = "d1" @focus="change" >-->
+<!--											<option selected="selected">{{obj.province}}</option>-->
+<!--										</select>-->
+											<select id="c1"v-model="cityId" @change="getCountry(cityId)" >
+											    <option v-for="ob in city" :value="ob.id">{{ob.name}}</option>
+<!--											    <option>是</option>-->
+<!--											    <option selected="selected">帅哥</option>-->
+<!--											    <option>嘛</option>-->
+											</select>
+											<select id="c2" v-model="countryId" disabled="disabled">
+											    <option v-for="ob in country" :value="ob.id">{{ob.name}}</option>
+<!--											    <option>是</option>-->
+<!--											    <option selected="selected">帅哥</option>-->
+<!--											    <option>嘛</option>-->
+											</select>
+									</li>
+									<li>
+										所属学校：
+										<select>
+										    <option>五中</option>
+										</select>
+									</li>
+									<li>
+										年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;纪：
+										<select v-model="gradeId">
+										    <option v-for="ob in grade" :value="ob.id">{{ob.gradeName}}</option>
+										</select>
+									</li>
+									<li><input type="button" @click="updateUser" name="" id="" value="保存" /></li>
+								</ul>							
+							</div>
+						</li>
+					  </ul>
+				  </div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function inputImage() {
+
+			}
+			var info = new Vue({
+				el:'#info',
+				data:{
+					obj:{},
+					province:{},
+					city:{},
+					country:{},
+					provinceId:{},
+					cityId:{},
+					countryId:{},
+					grade:{},
+					gradeId:{},
+
+					id2:{},
+					phoneNum2:{},
+					sex2:{},
+					mname2:{},
+					realName2:{},
+					province2:{},
+					city2:{},
+					country2:{},
+					grade2:{}
+				},
+				methods:{
+					changeSex:function(){
+						this.sex2="男";
+					},
+					changeSex2:function(){
+						this.sex2="女";
+					},
+					getCity:function(val){
+						$("#c1").attr("disabled",false)
+						$("#c2").attr("disabled",false)
+						alert("updata"+info.provinceId)
+						$.get("../user/showCity/",{id:info.provinceId},function (data) {
+							alert("city")
+							info.city=data;
+						})
+					},
+					getCountry:function (val) {
+						$.get("../user/showCounty/",{id:info.cityId},function (data) {
+							alert("country")
+							info.country=data;
+						})
+					},
+					change:function () {
+						$("#d2").attr("hidden",false)
+						$("#d1").attr("hidden",true)
+					},
+					updateUser:function () {
+						this.obj.realName2  = this.obj.realName;
+						this.obj.id2 = this.obj.id;
+						this.obj.phoneNum2 = this.obj.phoneNum;
+						// this.obj.sex2 = $("#sex").val();
+						// var sex2 = $("#sex").val();
+						// alert(sex2)
+						this.obj.mname2 = this.obj.mname;
+						this.city2 = this.cityId;
+						this.province2 = this.provinceId;
+						this.country2 = this.countryId;
+						this.grade2 = this.gradeId;
+
+						alert(this.city2+","+this.mname2+","+this.sex2+","+this.realName2);
+						$.post("../user/updateUser2",{"id":this.obj.id2,"realName":this.obj.realName2,
+							"phone":this.obj.phoneNum2,"mname":this.obj.mname2,"sex":this.sex2,"cityId":this.city2,
+							"provinceId":this.province2,"countrysideId":this.country2,"gradeId":this.grade2},function (data) {
+							alert(data.msg);
+						})
+					}
+
+				},
+				mounted:function () {
+
+					$.get("../user/allInfo/",function (data) {
+						info.provinceId=data.provinceId;
+						info.cityId=data.cityId;
+						info.countryId=data.countrysideId;
+						info.gradeId=data.gradeId;
+						info.obj=data;
+
+					})
+
+					// $.get("user/province/",{id:info.provinceId},function (data) {
+					//
+					// 	alert(data.name)
+					// 	info.province=data;
+					//
+					// })
+
+					$.get("../user/showProvince/",function (data) {
+
+						info.province=data;
+
+					})
+					$.get("../user/allCountry/",function (data) {
+
+						info.country=data;
+
+					})
+					$.get("../user/showAllCity/",function (data) {
+
+						info.city=data;
+
+					})
+
+
+					$.get("../user/allGrade/",function (data) {
+
+						info.grade=data;
+
+					})
+
+				},
+
+			})
+		</script>
+	</body>	
+</html>
