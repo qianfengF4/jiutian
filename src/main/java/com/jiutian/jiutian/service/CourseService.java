@@ -26,4 +26,6 @@ public interface CourseService {
     ResultVo selectAllList(int num);
 
     ResultVo selectAllListBynum(int num);
+
+    ResultVo selectCourseById(int id);
 }

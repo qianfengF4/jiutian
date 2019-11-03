@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>视频详情</title>
+    <link href="../media/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../media/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="../media/js/vue.min.js"></script>
+
+    <script type="text/javascript" src="../media/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../media/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../media/js/gVerify.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse" role="navigation" style="margin-bottom: 0px;">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <img src="../media/image/logo.png" width="267px" height="49px">
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">首页</a></li>
+                <li><a href="xingquketang.html">兴趣课堂</a></li>
+                <li><a href="">点课吧</a></li>
+                <li><a href="">中高考微课</a></li>
+                <li><a href="synchronousCourse.html" class="active">同步课程</a></li>
+                <li><a href="">管理中心</a></li>
+                <li><a href="">更多应用</a></li>
+            </ul>
+
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><input type="text" class="form-control" placeholder="搜索"
+                           style="border-radius: 30px;width: 120px;margin-top: 8px"></li>
+                <li><a href=""><span class="glyphicon glyphicon-search form-control-feedback"
+                                     style="margin-left: 100px;margin-top: 10px;padding-right: 55px"></span></a></li>
+
+                <li><a href="#"><span class="glyphicon glyphicon-user">&nbsp;个人中心</span></a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container" style="width: 1002px;height: 700px;margin: 0px 258.6px 0px 258.6px">
+<div style="width: 1002px;height: 319px;padding: 17px 0px 21px 15px;border-width: 1px;border-style: solid;border-color: #F5F5F5;margin: 52px 0px 33px 0px ">
+    <img style="width: 422px;height: 279px;float: left" src="http://node1.file.eduitv.cn/itv/jinhong/match/special/1543444967357.jpg" alt="">
+    <div style="width: 546px;height: 165px;float: right" id="xqy">
+        <dl style="width:546px;height: 165px;float: right" v-for="obj">
+            <dt style="width: 545px;height: 29.6px;margin-bottom: 20px;color: #2D8203">{{obj.title}}</dt>
+            <dd style="width: 545px;height: 29.6px">更新日期：{{obj.creatData}}</dd>
+            <dd style="width: 545px;height: 29.6px">年级：{{obj.gradeName}}&nbsp;&nbsp;&nbsp;&nbsp;学科：{{obj.projectName}}</dd>
+            <dd style="width: 545px;height: 29.6px">播放次数：{{obj.playNumber}}</dd>
+            <dd style="width: 545px;height: 29.6px">内容简介：{{obj.detail}}</dd>
+        </dl>
+
+        <div style="width:520px;height: 50px;">
+            <button type="button" class="btn btn-warning" style="float: right">播放视频</button>
+        </div>
+    </div>
+</div>
+
+    <div style="width: 1002px;height: 269px;">
+
+        <ul class="nav nav-tabs" style="padding-top: 10px">
+            <li><a href="#">课程目录</a></li>
+            <li class="active"><a href="#">学员评价</a></li>
+        </ul>
+
+        <div class="row" style="padding-top: 10px">
+            <div class="col-md-2" style="width:76px;height: 55px;text-align: center">
+                <em style="margin-left: 20px">
+                    <img style="height: 30px;width: 30px" src="http://www.gdedu.tv/images/neiye/small_h_pic3.jpg" alt="">
+                </em>
+                <div style="width: 76px;height: 25px;padding-top: 13px">
+                    虎妞真懂事
+                </div>
+
+            </div>
+
+            <div class="col-md-10" style="width: 615px;height: 47px;margin-left: 10px">
+                <div style="width: 890px;height: 22px;padding-bottom: 10px">
+                    <span style="font-size: 10px;color: #999999">湖北省荆州公安县 高三学生</span>
+                    <span style="font-size: 10px;color: #999999;float: right">2015-07-27 14:13:16</span>
+                </div>
+                <div style="width: 890px;height: 47px;padding-top: 5px; font-size: 10px">
+                    学会考试，要有意识，要在平时做题时加强训练
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+<script>
+    $.getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    var xqy = new Vue({
+        el: '#xqy',
+        data: {
+            obj: {}
+        },
+        methods: {
+        },
+        mounted() {
+            $.get("/api/select/courseById?id="+$.getUrlParam('id'),function (msg) {
+                xqy.obj=msg.data;
+
+            })
+        }
+    });
+//    $.getUrlParam('id')
+</script>
+</html>

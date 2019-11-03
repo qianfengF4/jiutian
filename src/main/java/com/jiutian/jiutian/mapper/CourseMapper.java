@@ -1,6 +1,7 @@
 package com.jiutian.jiutian.mapper;
 
 import com.jiutian.jiutian.entity.Course;
+import com.jiutian.jiutian.entity.Video;
 import com.jiutian.jiutian.vo.CourseVo;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.ResultType;
@@ -56,4 +57,7 @@ public interface CourseMapper {
 
     @Select("select c.id,c.title,c.detail,c.image,c.creat_data,c.play_number,g.grade_name,p.project_name from course c,grade g,project p where c.grade_id=g.id and c.project_id=p.id and status_id=2 order by c.play_number desc")
     List<CourseVo> selectAllListBynum99();
+
+    @Select("select c.title,c.play_number,c.detail,c.creat_data,g.grade_name,p.project_name from course c,grade g,project p where c.grade_id = g.id and c.project_id = p.id and c.id =#{id}")
+    Video selectCourseById(int id);
 }

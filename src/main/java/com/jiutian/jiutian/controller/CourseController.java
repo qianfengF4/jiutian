@@ -93,6 +93,12 @@ public class CourseController {
         return courseService.selectAllListBynum(num);
     }
 
+    @GetMapping("/api/select/courseById")
+    @ApiOperation(value = "通过id删除课程", notes = "通过id删除课程")
+    public ResultVo selectCourseById(int id){
+
+        return courseService.selectCourseById(id) ;
+    }
 
 
 }
