@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AfterProjectController {
     @Autowired
     AfterProjectService projectService;
-    @PostMapping("/api/select/project")
+    @PostMapping("/api/after/select/project")
     @ApiOperation(value = "查询所有学科", notes = "查询所有学科")
     public ResultVo selectProject(){
         return projectService.selectProject();

@@ -1,30 +1,32 @@
 package com.jiutian.jiutian.service.MessageServiceImpl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.jiutian.jiutian.entity.Video;
 import com.jiutian.jiutian.mapper.CourseMapper;
 import com.jiutian.jiutian.entity.Course;
+import com.jiutian.jiutian.mapper.UserDao;
+import com.jiutian.jiutian.mapper.UserMapper;
+import com.jiutian.jiutian.resultVo.ResultVo;
 import com.jiutian.jiutian.service.CourseService;
 import com.jiutian.jiutian.vo.CourseVo;
-import com.jiutian.jiutian.vo.ResultVo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class CourseServiceImpl implements CourseService {
+public class CourseServiceImpl extends ServiceImpl<CourseMapper,Course> implements CourseService {
 
     @Autowired
     CourseMapper courseMapper;
 
     @Override
     public Course qureyCourse(String ch) {
-//        ch = "\"" + ch+ "%\"";
+
         System.out.println(ch);
         List<Course> courseList = courseMapper.qureyCourse(ch);
 
-        // List<Course> courseList = courseDao.qureyCourse(ch);
-       // System.out.println(courseList.size());
         return courseList.get(0);
     }
 
@@ -116,40 +118,46 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public ResultVo selectCourseById(int id) {
-        Video video = courseMapper.selectCourseById(id);
-        return ResultVo.setOk(video);
+         CourseVo course = courseMapper.selectCourseById(id);
+        return ResultVo.setOk(course);
     }
 
 
 
     @Override
-    public List<Course> selectCourseByLearnSessionIdDesc(Integer learnSessionId, Model model) {
+    public List<Course> selectCourseByLearnSessionIdDesc(Integer learnSessionId) {
 
-        List<Course> courseListBySessionIdDesc = getBaseMapper().selectCourseByLearnSessionIdDesc(learnSessionId, model);
+        List<Course> courseListBySessionIdDesc = getBaseMapper().selectCourseByLearnSessionIdDesc(learnSessionId);
 
-        model.addAttribute("courseListBySessionIdDesc",courseListBySessionIdDesc);
+
 
         return courseListBySessionIdDesc;
     }
 
     @Override
-    public List<Course> selectCourseByTimeDesc(Model model) {
+    public List<Course> selectCourseByTimeDesc() {
 
-        List<Course> courseListByTimeDesc = getBaseMapper().selectCourseByTimeDesc(model);
+        List<Course> courseListByTimeDesc = getBaseMapper().selectCourseByTimeDesc();
 
-        model.addAttribute("courseListBySTimeDesc",courseListByTimeDesc);
 
         return courseListByTimeDesc;
     }
 
     @Override
-    public List<Course> selectCourseByLearnSessionIdTimeDesc(Integer learnSessionId, Model model) {
+    public List<Course> selectCourseByLearnSessionIdTimeDesc(Integer learnSessionId) {
 
-        List<Course> selectCourseByLearnSessionIdTimeDesc = getBaseMapper().selectCourseByLearnSessionIdTimeDesc(learnSessionId, model);
+        List<Course> selectCourseByLearnSessionIdTimeDesc = getBaseMapper().selectCourseByLearnSessionIdTimeDesc(learnSessionId);
 
-        model.addAttribute("selectCourseByLearnSessionIdTimeDesc",selectCourseByLearnSessionIdTimeDesc);
 
         return selectCourseByLearnSessionIdTimeDesc;
+    }
+
+    @Override
+    public ResultVo selectCourseXCById(int id) {
+        CourseVo course = courseMapper.selectCourseXCById(id);
+        String teacherName = courseMapper.selectUserById(course.getTeacherId());
+        course.setTeacherName(teacherName);
+        return ResultVo.setOk(course);
     }
 
 }

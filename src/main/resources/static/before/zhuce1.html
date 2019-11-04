@@ -101,19 +101,21 @@
 
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">所属区域</label>
-                <div class="col-sm-3">
-                    <select id="disabledSelect1" class="form-control">
-                        <option>请选择所在省份</option>
+                <div class="col-sm-3" id="sheng">
+                    <select id="disabledSelect1" v-model="provinceId" class="form-control"  @change="gaibain(provinceId)">
+                        <option v-for="item in obj"  :value="item.id">{{item.name}}</option>
                     </select>
                 </div>
-                <div class="col-sm-3">
-                    <select id="disabledSelect2" class="form-control">
-                        <option>请选择市</option>
+                <div class="col-sm-3" id="shi">
+                    <select id="disabledSelect2" v-model="cityId" class="form-control" @change="gaibain(cityId)">
+
+                        <option v-for="item in obj" :value="item.id">{{item.name}}</option>
                     </select>
                 </div>
-                <div class="col-sm-3">
-                    <select id="disabledSelect3" class="form-control">
+                <div class="col-sm-3" id="qu">
+                    <select id="disabledSelect3" v-model="countryId" class="form-control">
                         <option>请选择区县</option>
+                        <option v-for="item in obj" :value="item.id">{{item.name}}</option>
                     </select>
                 </div>
             </div>
@@ -121,14 +123,9 @@
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">年级</label>
 
-                <div class="col-sm-3">
-                    <select id="disabledSelect4" class="form-control">
-                        <option>请选择</option>
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <select id="disabledSelect5" class="form-control">
-                        <option>请选择班级</option>
+                <div class="col-sm-3" id="nianji">
+                    <select id="disabledSelect4" v-model="gradeId" class="form-control">
+                            <option v-for="item in obj" :value="item.id">{{item.gradeName}}</option>
                     </select>
                 </div>
             </div>
@@ -137,9 +134,10 @@
                 <label for="inputPassword3" class="col-sm-2 control-label">任教科目</label>
 
 
-                <div class="col-sm-3">
-                    <select id="disabledSelect6" class="form-control">
+                <div class="col-sm-3" id="kemu">
+                    <select id="disabledSelect6" v-model="projectId" class="form-control">
                         <option>请选择科目</option>
+                        <option v-for="item in obj" :value="item.id">{{item.projectName}}</option>
                     </select>
                 </div>
             </div>
@@ -184,16 +182,23 @@
         /* 获取用户输入的密码 */
         var password = $("#inputPassword").val();
         /* 比较 */
+        var provinc=sheng.provinceId;
+        var cit=shi.cityId
+        var countr=qu.countryId;
+        var projec = kemu.projectId;
+        var grad=nianji.gradeId;
+
+        if (phoneNum!=''&&password!=''&&provinc!=''&&cit!='' &&countr!=''&&projec!=''&&grad!='') {
         if (verifyCode.validate(imgCode)) {
 
             if (phoneCode == reCode) {
 
                 $.ajax({
                     url: "/api/user/register.do",
-                    data: {"phoneNumber": phoneNum, "password": password},
+                    data: {"phoneNumber": phoneNum, "password": password,"provinceId":provinc,"cityId":cit,"countryId":countr,"projectId":projec,"gradeId":grad},
                     type:"post",
                     success: function(data){
-                        if (data.code==200){
+                        if (data.code===200){
                             location.href = "login.html";
                         } else {
                             alert("注册失败！");
@@ -204,6 +209,8 @@
                 alert("注册失败")
             }
         }
+        }
+        alert("请输入完整信息");
     }
     function putCode() {
 
@@ -215,8 +222,80 @@
              reCode=data.data;
         })
 
-    }
-    
-    
+    };
+    var nianji = new Vue({
+        el: '#nianji',
+        data: {
+            obj: {},
+            gradeId:{}
+        },
+
+        mounted() {
+            $.get("/user/grade", function (data) {
+                nianji.obj = data;
+
+            })
+
+        }
+    });
+    var sheng = new Vue({
+        el: '#sheng',
+        data: {
+            obj: {},
+            provinceId:{},
+        },
+        methods: {
+            gaibain(a){
+                $.get("/user/showCity?id="+a, function (data) {
+                    shi.obj = data;
+                })
+            }
+        },
+        mounted() {
+            $.get("/user/showProvince", function (data) {
+                sheng.obj = data;
+
+            })
+
+        }
+    });
+    var shi = new Vue({
+        el: '#shi',
+        data: {
+            obj: {},
+            cityId:{}
+        },
+        methods: {
+            gaibain(a) {
+                $.get("/user/showCounty?id=" + a, function (data) {
+                    qu.obj = data;
+                })
+            }
+        }
+    });
+    var qu = new Vue({
+        el: '#qu',
+        data: {
+            obj: {},
+            countryId:{}
+        }
+    });
+    var kemu = new Vue({
+        el: '#kemu',
+        data: {
+            obj: {},
+            projectId:{}
+
+        },
+
+        mounted() {
+            $.get("/api/select/allProject", function (data) {
+                kemu.obj = data.data;
+            })
+
+        }
+    });
+
+
 </script>
 </html>

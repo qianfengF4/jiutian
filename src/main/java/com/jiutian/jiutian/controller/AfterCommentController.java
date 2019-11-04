@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AfterCommentController {
     @Autowired
     AfterCommentService commentService;
-    @PostMapping("/api/select/comment")
+    @PostMapping("/api/after/select/comment")
     @ApiOperation(value = "通过视频id查看评论", notes = "通过视频id查看评论")
     public ResultVo selectCommentById(int id){
         return commentService.selectCommentById(id);

@@ -18,7 +18,7 @@
     <![endif]-->
     <script src="http://code.jquery.com/jquery.js"></script>
 
-    <script src="../media/js/vue.min.js"></script>
+    <script src="/media/js/vue.min.js"></script>
     <!--<style type="text/css">
         *{margin: 0;padding: 0;}
         #dataTable li{list-style: none;}
@@ -58,13 +58,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="xingquketang.html" class="active">兴趣课堂</a></li>
-                <li><a href="">点课吧</a></li>
-                <li><a href="">中高考微课</a></li>
-                <li><a href="synchronousCourse.html">同步课程</a></li>
-                <li><a href="">管理中心</a></li>
-                <li><a href="">更多应用</a></li>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/before/xingquketang.html" class="active">兴趣课堂</a></li>
+                <li onclick="gengduo()"><a href="">点课吧</a></li>
+                <li onclick="gengduo()"><a href="">中高考微课</a></li>
+                <li><a href="/before/synchronousCourse.html?id=7">同步课程</a></li>
+                <li><a href="/after/login.html">管理中心</a></li>
+                <li onclick="gengduo()"><a href="">更多应用</a></li>
             </ul>
 
 
@@ -74,7 +74,7 @@
                 <li><a href=""><span class="glyphicon glyphicon-search form-control-feedback"
                                      style="margin-left: 100px;margin-top: 10px;padding-right: 55px"></span></a></li>
 
-                <li><a href="#"><span class="glyphicon glyphicon-user">&nbsp;个人中心</span></a></li>
+                <li onclick="gerenzhongxin()"><a href="#"><span class="glyphicon glyphicon-user">&nbsp;个人中心</span></a></li>
 
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -145,6 +145,7 @@ var num=0;
         el: '#xingqu',
         data: {
             obj: {}
+
         },
 
         mounted() {
@@ -171,5 +172,33 @@ var num=0;
          alert("+++");
          location.href="xiangqing.html?id="+id;
      };
+function gengduo() {
+    alert("暂无更多应用，团队正在努力开发中，敬请期待");
+};
+function gerenzhongxin() {
+    if (typeof(Storage) !== "undefined") {
+        // 存储
+        token = localStorage.getItem("token");
+        username = localStorage.getItem("username");
+    } else {
+        token = $.cookie("token");
+        username = $.cookie("username");
+
+    }
+if (token != null&&username !=null){
+
+
+    $.post("/api/isLogin.do",{username:username,token:token},function (data) {
+        if (data.code===200){
+            location.href="/before/personal_center.html";
+        } else {
+            location.href="/before/login.html";
+        }
+    })
+}
+else {
+    location.href="/before/login.html";
+}
+};
 </script>
 </html>

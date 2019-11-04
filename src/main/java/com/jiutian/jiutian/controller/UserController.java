@@ -1,23 +1,31 @@
 package com.jiutian.jiutian.controller;
 
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
+import com.aliyuncs.http.HttpResponse;
+import com.jiutian.jiutian.dto.UserDto;
 import com.jiutian.jiutian.entity.*;
 
+import com.jiutian.jiutian.resultVo.ResultVo;
 import com.jiutian.jiutian.service.*;
+import com.jiutian.jiutian.utils.FileUploadImage;
 import com.jiutian.jiutian.utils.RedisUtil;
+import com.jiutian.jiutian.utils.SmsUtils;
 import com.jiutian.jiutian.vo.R;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import java.io.IOException;
 import java.util.List;
 
-@RestController
+@Controller
 @Api(value = "用户管理" ,tags="实现用户各种操作")
 public class UserController {
     @Autowired
@@ -54,8 +62,9 @@ public class UserController {
     RedisUtil redisUtil;
 
 
-    @PostMapping("api/login")
+    @PostMapping("/api/login")
     @ApiOperation(value="登陆",notes="登陆")
+    @ResponseBody
     public int login(User user, HttpSession session){
         User user1 = userService.getUserId(user);
         System.out.println("user1="+user1.getId());
@@ -83,14 +92,15 @@ public class UserController {
         return list;
     }
     @ApiOperation(value="获得所有区",notes="获得所有区")
-    @GetMapping("user/allCountry")
+    @GetMapping("/user/allCountry")
     public List<Area> userArea() {
          List<Area> list = areaService.showAllCounty();
         return list;
     }
 
     @ApiOperation(value="获得所有年级",notes="获得所有年级")
-    @GetMapping("user/allGrade")
+    @GetMapping("/user/allGrade")
+    @ResponseBody
     public List<Grade> userGrade() {
 
         List<Grade> list = gradeService.getGrade();
@@ -103,52 +113,43 @@ public class UserController {
     @ResponseBody
     public User userInfo(HttpSession session) {
         int id = (int) session.getAttribute("user");
-        System.out.println("id="+id);
+
         User list = userService.getAllUsers(id);
 
-        System.out.println(list);
         return list;
     }
 
     @ApiOperation(value="获得个人省信息",notes="获得个人省信息")
-    @GetMapping("user/province")
+    @GetMapping("/user/province")
     @ResponseBody
     public List<Area> getProVince(int id){
         System.out.println(provinceService.getProvince(id));
         return provinceService.getProvince(id);
     }
     @ApiOperation(value="获得个人城市信息",notes="获得个人城市信息")
-    @GetMapping("user/city")
+    @GetMapping("/user/city")
     @ResponseBody
     public List<Area> getCity(int id) {
             return citySerivce.getCity(id);
     }
 
     @ApiOperation(value="获得个人区信息",notes="获得个人区信息")
-    @GetMapping("user/dist")
+    @GetMapping("/user/dist")
     @ResponseBody
     public List<Area> getDists(int id) {
             return distService.getDist(id);
     }
 
 
-//    @ApiOperation(value="获得对应学校信息",notes="获得对应学校信息")
-//    @GetMapping("user/school")
-//    @ResponseBody
-//    public List<School> getSchools(int id) {
-//        return schoolService.getSchool(id);
-//    }
-
-
     @ApiOperation(value="获得对应年级信息",notes="获得年级信息")
-    @GetMapping("user/grade")
+    @GetMapping("/user/grade")
     @ResponseBody
     public List<Grade> getGrades() {
         return gradeService.getGrade();
     }
-    //
+
     @ApiOperation(value="修改用户信息",notes="获得用户信息")
-    @GetMapping("user/updateUser")
+    @GetMapping("/user/updateUser")
     @ResponseBody
     public boolean updateUser(User user) {
         System.out.println("后端已经获取到"+user.getPassword());
@@ -158,7 +159,7 @@ public class UserController {
     }
 
     @ApiOperation(value="修改用户密码",notes="获得用户密码")
-    @PostMapping("user/updatePassword")
+    @PostMapping("/user/updatePassword")
     @ResponseBody
     public R updatePassword(User user) {
 
@@ -168,7 +169,7 @@ public class UserController {
 
 
     @ApiOperation(value="添加收藏",notes="添加收藏")
-    @GetMapping("user/addCourse")
+    @GetMapping("/user/addCourse")
     @ResponseBody
     public boolean updatePassword2(Collection collection) {
 
@@ -178,7 +179,7 @@ public class UserController {
     }
 
     @ApiOperation(value="展示收藏",notes="展示收藏")
-    @GetMapping("user/showCourse")
+    @GetMapping("/user/showCourse")
     @ResponseBody
     public  List<Course> updatePassword3(int id) {
 
@@ -192,7 +193,7 @@ public class UserController {
     @ResponseBody
     public List<Area> getProvince() {
         List<Area> list = areaService.showProvice();
-        System.out.println("1:"+list);
+
         return list;
 
     }
@@ -203,7 +204,7 @@ public class UserController {
     public List<Area> getCity2(int id) {
 
         List<Area> list = areaService.showCity(id);
-        System.out.println(list);
+
         return list;
     }
 
@@ -237,45 +238,28 @@ public class UserController {
 
 
     @ApiOperation(value="展示课程",notes="展示课程")
-    @GetMapping("user/showProject")
+    @GetMapping("/user/showProject")
     @ResponseBody
     public List<ProjectPart> getProject(int id) {
 
         return userService.getProjectPart(id);
 
     }
-    @ApiOperation(value="上传图片",notes="上传图片")
-    @GetMapping("user/upLoadImage")
+
+
+    @PostMapping("/api/user/login.do")
+    @ApiOperation(value = "登录")
     @ResponseBody
-    public List<ProjectPart> upImage(MultipartFile image_file,HttpSession session) {
+    public ResultVo login(UserDto userDto, HttpSession session){
 
-       // return userService.getProjectPart();
-        return  null;
-    }
-
-
-//    //查询当前登录用户的菜单信息
-//    @ApiOperation(value="查询当前登录用户的菜单信息",notes="查询当前登录用户的菜单信息")
-//    @GetMapping(value = "/api/user/queryMenu.do")
-//    @ResponseBody
-//    public String queryMenu(){
-//        System.out.println("12");
-//        return "回到了";
-//        //return userService.queryMenu();
-//    }
-@PostMapping("/api/user/login.do")
-@ApiOperation(value = "登录")
-public ResultVo login(UserDto userDto){
-
-    System.out.println(userDto.getUsername());
-
-    return userService.login(userDto);
+    return userService.login(userDto,session);
 
 }
 
 
     @PostMapping("/api/send/message.do")
     @ApiOperation(value = "发送短信验证码")
+    @ResponseBody
     public ResultVo code(String phoneNumber){
 
         SmsUtils.setNewcode();
@@ -301,11 +285,53 @@ public ResultVo login(UserDto userDto){
 
     @PostMapping("/api/user/register.do")
     @ApiOperation(value = "用户注册")
+    @ResponseBody
     public ResultVo register(User user) {
 
         return userService.register(user);
 
     }
+    @PostMapping("/api/isLogin.do")
+    @ApiOperation(value = "用户注册")
+    @ResponseBody
+    public ResultVo isLogin(String username,String token) {
+
+        return userService.isLogin(username,token);
+
+    }
+    @GetMapping("/api/select/allProject")
+    @ApiOperation(value = "查询所有科目")
+    @ResponseBody
+    public ResultVo selectAllProject() {
+
+        return userService.selectAllProject();
+
+    }
 
 
+
+    @ApiOperation(value="上传图片",notes="上传图片")
+    @PostMapping("/user/upLoadImage")
+    public void upImage(MultipartFile image_file, HttpSession session, HttpServletResponse response) throws IOException {
+        String newName = FileUploadImage.upload(image_file);
+        int id = (int) session.getAttribute("user");
+
+        User user = userService.getAllUsers(id);
+        user.setImage(newName);
+        boolean res = userService.updateById(user);
+        response.sendRedirect("/before/personal_center.html");
+
+    }
+    @ApiOperation(value="展示图片",notes="展示图片")
+    @GetMapping("/user/showMyProfile")
+    @ResponseBody
+    public R showMyprofile(HttpSession session) {
+
+        int email = (int) session.getAttribute("user");
+        System.out.println("userid="+email);
+        User user = userService.getAllUsers(email);
+        System.out.println(user);
+        user.setImage(user.getImage());
+        return  R.setResult(true,user);
+    }
 }

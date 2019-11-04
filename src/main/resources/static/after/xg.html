@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+    <link href="../media/css/bootstrap.css" rel="stylesheet" type="text/css">
+
+    <script src="../media/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../media/js/bootstrap.js"></script>
+    <script src="../media/js/vue.min.js"></script>
+    <link rel="stylesheet" href="../media/css/base.css">
+    <script src="../media/js/element.js"></script>
+    <link rel="stylesheet" href="../media/css/element.css">
+</head>
+<body>
+<iframe style="position: fixed; top:0" src="https://www.jsdaima.com/js/demo/1079.html" frameborder="0" width="100%" height="100%"></iframe>
+<button style="position: fixed; top: 10px; right: 10px; border-radius: 10px;z-index: 1;" class="change">点我</button>
+
+<h2 style="margin-left: 46%;margin-top: 5%">修改密码</h2>
+<div class="input-group input-group-lg"  style="width: 30%;margin-left: 35%;margin-top: 3%">
+    <span class="input-group-addon "  >原密码</span>
+    <input type="password" class="form-control" id="password" placeholder="oldPassword" aria-describedby="sizing-addon1">
+</div>
+<div class="input-group input-group-lg" style="width: 30%;margin-left: 35%;margin-top: 1%">
+    <span class="input-group-addon"  >新密码</span>
+    <input type="password" class="form-control" id="password1" placeholder="newPassword" aria-describedby="sizing-addon1">
+</div>
+<div class="input-group input-group-lg" style="width: 30%;margin-left: 35%;margin-top: 1%">
+    <span class="input-group-addon" >确认密码</span>
+    <input type="password" class="form-control" id="password2" placeholder="newPass" aria-describedby="sizing-addon1">
+</div>
+<div class="btn-group btn-group-lg" role="group" style="width: 30%;margin-left: 35%;margin-top: 2%">
+    <button onclick="xg()" type="button" class="btn btn-dark">确认修改</button>
+    <div id="msg" style="color: red;font-size: 20px;margin-left: 40%;margin-top: 3%">
+        {{message}}
+    </div>
+</div>
+</body>
+<script>
+    let arr = ['../after/index.html','3283','3361','3339','3323']
+    let n = 0
+    $('.change').click(function () {
+        if(n >= arr.length){
+            n = 0
+            $(this).text('最后一个')
+        }
+
+        if(n == 0){
+            $('iframe').attr('src', arr[0])
+            $(this).text('继续')
+        }else{
+            console.log(n);
+            $(this).text('点我')
+
+            let url = `https://www.jsdaima.com/js/demo/${arr[n]}.html`
+            $('iframe').attr('src', url)
+        }
+
+        n++
+
+    })
+</script>
+<script>
+    var msg = new Vue({
+        el: '#msg',
+        data: {
+            message: ''
+        }
+    });
+
+           function xg() {
+                var password = $("#password").val();
+                var password1 = $("#password1").val();
+                var password2 = $("#password2").val();
+
+                if (password===''||password1===''||password2===''){
+                    msg.message = "密码不能为空";
+                }
+                else if (password1!==password2){
+                    msg.message = "两次输入密码不一致";
+                }else {
+                   $.post("/api/after/isOK",{password:password},function (data) {
+                       if (data.code===200){
+                           $.post("/reset",{password:password1},function (data) {
+                               if (data.code===200){
+                                   alert(data.data);
+                                   location.href="/after/index1.html"
+                               }
+                           })
+                       } else {
+                           msg.message = data.data;
+                       }
+                   })
+                }
+
+            }
+
+</script>
+</html>

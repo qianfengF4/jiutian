@@ -26,7 +26,7 @@ public class AfterCourseController {
     AfterCourseService courseService;
     @Autowired
     AfterCourse1Service insertCourse;
-    @PostMapping("/delectCourseById")
+    @PostMapping("/api/after/delectCourseById")
     @ApiOperation(value = "通过id删除课程", notes = "通过id删除课程")
     public ResultVo delectCourseById(int id){
         courseService.removeById(id);
@@ -34,7 +34,7 @@ public class AfterCourseController {
     }
 
 
-    @PostMapping("/deleteCourseByIds")
+    @PostMapping("/api/after/deleteCourseByIds")
     @ApiOperation(value = "通过ids批量删除课程", notes = "通过ids批量删除课程")
     public ResultVo deleteCourseByIds(String ids){
         String[] split = ids.split("\"");
@@ -47,10 +47,9 @@ public class AfterCourseController {
         }
         return courseService.removeCourseByIds(integers);
     }
-    @PostMapping("/api/insert/course")
+    @PostMapping("/api/after/insert/course")
     @ApiOperation(value = "通过id添加课程", notes = "通过id添加课程")
     public ResultVo insertCourse(AfterCourse course){
-        System.out.println(course.getVideoUrl());
         return insertCourse.insertCourse(course) ;
     }
 

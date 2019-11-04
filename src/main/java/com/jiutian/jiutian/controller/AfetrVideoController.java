@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class AfetrVideoController {
-    @PostMapping("/uploadVidoe")
+    @PostMapping("/api/after/uploadVidoe")
     public ResultVo savaVideo( MultipartFile file) {
         String url = FileUpload.upload(file);
         return  ResultVo.setOk(url) ;

@@ -1,18 +1,25 @@
 package com.jiutian.jiutian.service.MessageServiceImpl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.jiutian.jiutian.dto.UserDto;
 import com.jiutian.jiutian.entity.Project;
 import com.jiutian.jiutian.entity.ProjectPart;
 import com.jiutian.jiutian.entity.User;
+import com.jiutian.jiutian.mapper.AdminMapper;
 import com.jiutian.jiutian.mapper.UserDao;
+import com.jiutian.jiutian.resultVo.ResultVo;
 import com.jiutian.jiutian.service.UserService;
+import com.jiutian.jiutian.utils.RedisUtil;
+import com.jiutian.jiutian.utils.UUIDUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Objects;
 
 @Service
-//@Component(value = "UserDao")
 public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserService {
 
     @Autowired
@@ -21,13 +28,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Override
     public User getAllUsers(int id) {
         User user= userDao.getAllUser(id);
-        System.out.println(user);
-        return user;
-    }
-
-    @Override
-    public User getAllUser(int id) {
-        User user= userDao.getAllUsers(id);
         System.out.println(user);
         return user;
     }
@@ -53,71 +53,29 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
 
-//    @Override
-//    public List<User> getUsers() {
-//
-//        return userDao.getUser();
-//    }
-
 
     @Autowired
     AdminMapper adminMapper;
-
+    @Autowired
+    RedisUtil redisUtil;
     @Override
-    public ResultVo login(UserDto userDto) {
-        //1、查询用户
-        //User user = getBaseMapper().selectOne(new QueryWrapper<User>().eq("mname", userDto.getUsername()));
+    public ResultVo login(UserDto userDto, HttpSession session) {
 
         User user = getBaseMapper().selectUser(userDto.getUsername());
 
-        System.out.println(user);
         //2、验证账号是否存在
         if(user!=null){
             //3、验证密码
             if(Objects.equals(user.getPassword(),userDto.getPsw())){
-                //4、操作Shiro
-
-                // 1.创建主题对象
-                Subject subject = SecurityUtils.getSubject();
-
-                // 2.创建令牌 用户名密码令牌
-                UsernamePasswordToken token = new UsernamePasswordToken(userDto.getUsername(), userDto.getPsw());
-
-                // 3.存储当前的User
-                subject.getSession().setAttribute("curruser",user);
-
-                // 4.登录 告诉Shiro登录成功
-                subject.login(token);
-
-                return ResultVo.setOk("OK");
+                session.setAttribute("user",user.getId());
+                String uuid = UUIDUtils.getUUID();
+                redisUtil.set(userDto.getUsername(),uuid);
+                return ResultVo.setOk(uuid);
             }
         }
         return ResultVo.setError("失败");
     }
 
-    /*@Override
-    public R loginByPhoneNum(User user) {
-
-        User user1 = getBaseMapper().selectOne(new QueryWrapper<User>().eq("phone_num", user.getPhoneNum()));
-
-        System.out.println(user1.getPhoneNum());
-
-        if (user1!=null) {
-
-            // 发送验证码
-
-            SmsUtil.setNewcode();
-            String code = Integer.toString(SmsUtil.getNewcode());
-            int id = userMapper.insertPhoneNum(user.);
-
-
-            // 进行验证码比较。正确登录跳index页面，不正确报异常
-
-            return R.setOK("OK");
-
-        }
-        return R.setERROR();
-    }*/
 
     @Override
     public ResultVo register(User user) {
@@ -233,5 +191,25 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         }
 
         return ResultVo.setError("失败");
+    }
+
+    @Override
+    public ResultVo isLogin(String username, String token) {
+        Object s = redisUtil.get(username);
+        System.out.println(s);
+        if (s!=null){
+            String str=(String)s;
+            System.out.println(str);
+            if (str.equals(token)){
+                return ResultVo.setOk("OK");
+            }
+        }
+        return ResultVo.setError("未登录");
+    }
+
+    @Override
+    public ResultVo selectAllProject() {
+        List<Project> projectList = userDao.selectAllProject();
+        return ResultVo.setOk(projectList) ;
     }
 }

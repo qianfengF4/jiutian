@@ -9,11 +9,11 @@
 		<meta http-equiv="cache-control" content="no-cache">
 		<meta http-equiv="expires" content="0">
 		<title>AcHEnaaa</title>
-		<link href="media/css/default.css" rel="stylesheet" type="text/css" />
+		<link href="../media/css1/default.css" rel="stylesheet" type="text/css" />
 		<!--必要样式-->
-		<link href="media/css/styles.css" rel="stylesheet" type="text/css" />
-		<link href="media/css/demo.css" rel="stylesheet" type="text/css" />
-		<link href="media/css/loaders.css" rel="stylesheet" type="text/css" />
+		<link href="../media/css1/styles.css" rel="stylesheet" type="text/css" />
+		<link href="../media/css1/demo.css" rel="stylesheet" type="text/css" />
+		<link href="../media/css1/loaders.css" rel="stylesheet" type="text/css" />
 	</head>
 
 	<body>
@@ -24,25 +24,25 @@
 			<div class='login_fields'>
 				<div class='login_fields__user'>
 					<div class='icon'>
-						<img alt="" src='media/img/user_icon_copy.png'>
+						<img alt="" src='../media/img1/user_icon_copy.png'>
 					</div>
 					<input name="login" placeholder='用户名' id="mname" maxlength="16" type='text' autocomplete="off" value="AcHEnz2Z"/>
 					<div class='validation'>
-						<img alt="" src='media/img/tick.png'>
+						<img alt="" src='../media/img1/tick.png'>
 					</div>
 				</div>
 				<div class='login_fields__password'>
 					<div class='icon'>
-						<img alt="" src='media/img/lock_icon_copy.png'>
+						<img alt="" src='../media/img1/lock_icon_copy.png'>
 					</div>
 					<input name="pwd" placeholder='密码' id="password" maxlength="16" type='password' autocomplete="off">
 					<div class='validation'>
-						<img alt="" src='media/img/tick.png'>
+						<img alt="" src='../media/img1/tick.png'>
 					</div>
 				</div>
 				<div class='login_fields__password'>
 					<div class='icon'>
-						<img alt="" src='media/img/key.png'>
+						<img alt="" src='../media/img1/key.png'>
 					</div>
 					<input name="code" placeholder='验证码' id="code" maxlength="4" type='text' name="ValidateNum" autocomplete="off">
 					<div class='validation' style="opacity: 1; right: -5px;top: -3px;">
@@ -71,15 +71,15 @@
 		</div>
 		<div class="OverWindows"></div>
 		
-		<link href="media/layui/css/layui.css" rel="stylesheet" type="text/css" />
+		<link href="../media/layui/css/layui.css" rel="stylesheet" type="text/css" />
 		
-		<script type="text/javascript" src="media/js/jquery.min.js"></script>
-		<script type="text/javascript" src="media/js/jquery-ui.min.js"></script>
-		<script type="text/javascript" src='media/js/stopExecutionOnTimeout.js?t=1'></script>
-		<script type="text/javascript" src="media/layui/layui.js"></script>
-		<script type="text/javascript" src="media/js/Particleground.js"></script>
-		<script type="text/javascript" src="media/Js/Treatment.js"></script>
-		<script type="text/javascript" src="media/js/jquery.mockjax.js"></script>
+		<script type="text/javascript" src="../media/js1/jquery.min.js"></script>
+		<script type="text/javascript" src="../media/js1/jquery-ui.min.js"></script>
+		<script type="text/javascript" src='../media/js1/stopExecutionOnTimeout.js?t=1'></script>
+		<script type="text/javascript" src="../media/layui1/layui.js"></script>
+		<script type="text/javascript" src="../media/js1/Particleground.js"></script>
+		<script type="text/javascript" src="../media/js1/Treatment.js"></script>
+		<script type="text/javascript" src="../media/js1/jquery.mockjax.js"></script>
 		<script type="text/javascript">
 			var canGetCookie = 1; //是否支持存储Cookie 0 不支持 1 支持
 
@@ -96,29 +96,47 @@
 			}
 
             function sub() {
-                var mname = $("#mname").val();
-                var password = $("#password").val();
-                var code = $("#code").val();
-                var valiDateCode = getCookieValue("AdminCode");
-                if (code == valiDateCode) {
-                    $.ajax({
-                        url: "api/user/login.do",
-                        data: {"username": mname, "psw": password},
-                        type:"post",
-                        success: function(data){
-                            if (data.code==200){
-                                location.href = "index.html";
-                            } else {
-                                alert("登录失败！");
-                            }
-                        }
-                    });
-                } else {
-                    alert("登录失败")
-                }
 
-            }
+				var mname = $("#mname").val();
+				var password = $("#password").val();
+				var code = $("#code").val();
+				var valiDateCode = getCookieValue("AdminCode");
+				if (mname == '') {
+					ErroAlert('请输入您的账号');
+				} else if (password == '') {
+					ErroAlert('请输入密码');
+				} else if (code == '' || code.length != 4) {
+					ErroAlert('输入验证码');
+				} else {
+					if (code == valiDateCode) {
+						$.ajax({
+							url: "/api/user/login.do",
+							data: {username: mname, psw: password},
+							type: "post",
+							success: function (data) {
 
+								if (data.code === 200) {
+									var token = data.data;
+									if (typeof(Storage) !== "undefined") {
+										// 存储
+										localStorage.setItem("token", token);
+										localStorage.setItem("username", mname);
+									} else {
+										$.cookie('token', token, {expires: 7, path: '/seckill'});
+										$.cookie('username', token, {expires: 7, path: '/seckill'});
+									}
+									location.href = "/index.html";
+								} else {
+									alert("登录失败！");
+								}
+							}
+						});
+					} else {
+						alert("验证码错误");
+					}
+
+				}
+			}
 			function showCheck(a) {
 				CodeVal = a;
 				var c = document.getElementById("myCanvas");
@@ -134,67 +152,7 @@
 					$('input[type="button"]').click();
 				}
 			});
-			//粒子背景特效
-			//			$('body').particleground({
-			//				dotColor: '#E8DFE8',
-			//				lineColor: '#133b88'
-			//			});
-			//			$('input[name="pwd"]').focus(function() {
-			//				$(this).attr('type', 'password');
-			//			});
-			//			$('input[type="text"]').focus(function() {
-			//				$(this).prev().animate({
-			//					'opacity': '1'
-			//				}, 200);
-			//			});
-			//			$('input[type="text"],input[type="password"]').blur(function() {
-			//				$(this).prev().animate({
-			//					'opacity': '.5'
-			//				}, 200);
-			//			});
-			//			$('input[name="login"],input[name="pwd"]').keyup(function() {
-			//				var Len = $(this).val().length;
-			//				if(!$(this).val() == '' && Len >= 5) {
-			//					$(this).next().animate({
-			//						'opacity': '1',
-			//						'right': '30'
-			//					}, 200);
-			//				} else {
-			//					$(this).next().animate({
-			//						'opacity': '0',
-			//						'right': '20'
-			//					}, 200);
-			//				}
-			//			});
-			var open = 0;
-			layui.use('layer', function() {
-				//非空验证
-				$('input[type="button"]').click(function() {
-					var login = $('input[name="login"]').val();
-					var pwd = $('input[name="pwd"]').val();
-					var code = $('input[name="code"]').val();
-					if(login == '') {
-						ErroAlert('请输入您的账号');
-					} else if(pwd == '') {
-						ErroAlert('请输入密码');
-					} else if(code == '' || code.length != 4) {
-						ErroAlert('输入验证码');
-					} else {
-						//登陆
-						var JsonData = {
-							login: login,
-							pwd: pwd,
-							code: code
-						};
-						//$.post("url",JsonData,function(data) {
-						console.log(111);
-						alert("登录成功");
-						//window.location.href = 'http://127.0.0.1:8020/jQueryLogin/index.html?__hbt=1567408106021';
-						//});						
-					}
-				})
-			})
-			//全屏
+
 			var fullscreen = function() {
 				elem = document.body;
 				if(elem.webkitRequestFullScreen) {
@@ -208,10 +166,10 @@
 				}
 			}
 		</script>
-		<script type="text/javascript" src="media/img/ThreeWebGL.js"></script>
-		<script type="text/javascript" src="media/img/ThreeExtras.js"></script>
-		<script type="text/javascript" src="media/img/Detector.js"></script>
-		<script type="text/javascript" src="media/img/RequestAnimationFrame.js"></script>
+		<script type="text/javascript" src="../media/img1/ThreeWebGL.js"></script>
+		<script type="text/javascript" src="../media/img1/ThreeExtras.js"></script>
+		<script type="text/javascript" src="../media/img1/Detector.js"></script>
+		<script type="text/javascript" src="../media/img1/RequestAnimationFrame.js"></script>
 		<script id="vs" type="x-shader/x-vertex">
 			varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 ); }
 		</script>

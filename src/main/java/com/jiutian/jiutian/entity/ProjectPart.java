@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Data
 @TableName("project_part")
 public class ProjectPart implements Serializable {
-    int id ;
-    String PartName;
+   private int id ;
+   private String PartName;
 
 }

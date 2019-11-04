@@ -26,19 +26,19 @@ public class AdminController {
         return adminService.isLogin(adminVo);
     }
 
-    @PostMapping("/api/select/admin")
+    @PostMapping("/api/after/select/admin")
     @ApiOperation(value = "用于查询后台管理信息", notes = "用于查询后台管理信息")
     public ResultVo selectAdminById(){
         return adminService.selectAdminById();
     }
 
-    @PostMapping("/isOK")
+    @PostMapping("/api/after/isOK")
     @ApiOperation(value = "用于后台管理密码修改时原密码验证", notes = "用于后台管理密码修改时原密码验证")
     public ResultVo isOK(String password){
 
         return adminService.selectPasswordByAdminId(password);
     }
-    @PostMapping("/reset")
+    @PostMapping("/api/after/reset")
     @ApiOperation(value = "用于后台管理密码修改", notes = "用于后台管理密码修改")
     public ResultVo reset(String password){
 

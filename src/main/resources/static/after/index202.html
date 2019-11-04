@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>上传课程</title>
+    <link href="../media/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../media/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="../media/js/vue.min.js"></script>
+    <link href="../media/css/style.css" rel="stylesheet">
+
+    <script type="text/javascript" src="../media/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../media/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../media/css/base.css">
+    <script src="../media/js/element.js"></script>
+    <link rel="stylesheet" href="../media/css/element.css">
+
+</head>
+
+<body>
+    <!-- <iframe style="position: absolute;" src="https://www.jsdaima.com/Uploads/js/201802/1517995946/index.html" frameborder="0" width="100%" height="100%"></iframe> -->
+    <iframe style="position: fixed; top:0" src="../after/index.html" frameborder="0" width="100%" height="100%"></iframe>
+    <button style="position: fixed; top: 10px; right: 10px; border-radius: 10px;z-index: 1;" class="change">点我</button>
+    <div class="wrapper">
+
+        <div class="container_full">
+            <div class="side_bar scroll_auto" style="width: 15%">
+                <div class="user-panel">
+                    <div class="user_image" style="border-radius: 50%">
+                        <img style="border-radius: 50%"
+                            src="http://b-ssl.duitang.com/uploads/item/201412/19/20141219030221_QCNMA.jpeg" />
+                    </div>
+                    <div class="info" style="margin-top: 23%">
+                        <p>
+                            Alexander Pierce
+                        </p>
+                        <a href="#">
+                            <i class="fa fa-circle text-success"></i> Online</a>
+                    </div>
+                </div>
+
+                <ul id="dc_accordion" class="sidebar-menu tree">
+                    <li v-for="m in obj.data">
+                        <a>
+                            <i :class="m.icons"></i><span @click="btn(m.child,m.id)" class="menu-text" :value="m.id">
+                                {{m.name}} </span>
+                            <b v-if="m.child.length>0" @click="btn(m.child,m.id)"
+                                class="glyphicon glyphicon-chevron-down" style="margin-left: 35%"></b>
+                        </a>
+                        <ul class="submenu" id="dis" style="display: block">
+                            <li v-for="mc in m.child" @click="btn(mc.child,mc.id)" class="home"><a
+                                    href="javascript:void(0)" :name="mc.murl" :title="mc.name"><i
+                                        class="icon-double-angle-right"></i>{{mc.name}}</a></li>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div id="box1">
+            <el-radio-group v-model="labelPosition" size="small">
+                <el-radio-button label="left">左对齐</el-radio-button>
+                <el-radio-button label="right">右对齐</el-radio-button>
+                <el-radio-button label="top">顶部对齐</el-radio-button>
+            </el-radio-group>
+            <div style="margin: 30px;"></div>
+            <el-form :label-position="labelPosition" label-width="80px" :model="formLabelAlign">
+                <el-form-item label="题目">
+                    <el-input v-model="formLabelAlign.name"></el-input>
+                </el-form-item>
+                <el-form-item label="描述">
+                    <el-input type="textarea" autosize placeholder="请输入内容" v-model="textarea1"></el-input>
+                </el-form-item>
+                </el-input>
+                <div style="margin: 20px 0;"></div>
+                <el-form-item label="年级" prop="region1">
+                    <el-select v-model="ruleForm.region1"  placeholder="请选择年级">
+                        <el-option  v-for='item in data1' :label="item.gradeName" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="学段" prop="region2">
+                    <el-select v-model="ruleForm.region2" placeholder="请选择学段">
+                        <el-option v-for="item in data2" :label="item.learnSessionName" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="学科" prop="region3">
+                    <el-select v-model="ruleForm.region3" placeholder="请选择学科">
+                        <el-option v-for="item in data3" :label="item.projectName" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="上下册" prop="region4">
+                    <el-select v-model="ruleForm.region4" placeholder="请选择上下册">
+                        <el-option v-for="item in data4" :label="item.volumeName" :value="item.id"></el-option>
+                    </el-select>
+                </el-form-item>
+                <input style="width: 75%; height: 100%;display: block" type="file" name="myfile" onchange="uploadVidoe(this)"/>
+            </el-form>
+            <el-button @click="fm()" class="fi1" type="primary"><input class="fi" type="button">上传视频</el-button>
+        </div>
+    </div>
+</body>
+<script>
+    let arr = ['../after/index.html','3283','3361','3339','3323']
+    let n = 0
+    $('.change').click(function () {
+        if(n >= arr.length){
+            n = 0
+            $(this).text('最后一个')
+        }
+       
+        if(n == 0){
+            $('iframe').attr('src', arr[0])
+            $(this).text('继续')
+        }else{
+            console.log(n);
+            $(this).text('点我')
+
+            let url = `https://www.jsdaima.com/js/demo/${arr[n]}.html`
+            $('iframe').attr('src', url)
+        }
+
+        n++
+
+    })
+</script>
+<script>
+    var vm = new Vue({
+        el: '#box1',
+        data: {
+            textarea1: '', //描述
+            labelPosition: 'left',
+            formLabelAlign: {
+                name: '',
+                region: '',
+                type: ''
+            },
+            ruleForm: {
+                name: '',
+                // 以下是每个下拉列表的值
+                region1: '',
+                region2: '',
+                region3: '',
+                region4: '',
+            },
+            data1:{},
+            data2:{},
+            data3:{},
+            data4:{},
+
+        },
+        methods: {
+            add() {
+                console.log(this.ruleForm.region1);
+            }
+        },
+        mounted() {
+            $.post("/api/after/select/grade", {}, function (msg) {
+                vm.data1 = msg.data;
+            }),
+            $.post("/api/after/select/learnSession", {}, function (msg) {
+                 vm.data2 = msg.data;
+            }),
+                $.post("/api/after/select/project", {}, function (msg) {
+                    vm.data3 = msg.data;
+                }),
+                $.post("/api/after/select/volume", {}, function (msg) {
+                    vm.data4 = msg.data;
+                })
+        }
+    })
+    var menu = new Vue({
+        el: '#dc_accordion',
+        data: {
+            obj: {}
+        },
+        methods: {
+            btn(child, obj) {
+
+                if (child.length > 0) {
+
+                    if ($(".submenu").css("display") === "none") {
+                        $(".submenu").css("display", "block");
+                    } else {
+                        $(".submenu").css("display", "none");
+                    }
+
+                } else {
+                    location.href="/after/index"+obj+".html";
+                }
+
+            }
+        },
+        mounted() {
+            $.get("/api/after/menu", function (msg) {
+                menu.obj = msg;
+            })
+
+        }
+    });
+
+var url='';
+    function fm(){
+        if (vm.formLabelAlign.name===''||vm.ruleForm.region1===''||vm.ruleForm.region2===''||vm.ruleForm.region3===''||vm.textarea1===''||vm.ruleForm.region4==='') {
+            alert("请将信息填写完整");
+        }else {
+        if ((vm.ruleForm.region1<=6&&vm.ruleForm.region2===1)||(((vm.ruleForm.region1>6&&vm.ruleForm.region1<=9)||vm.ruleForm.region1===13)&&vm.ruleForm.region2===2)||(((vm.ruleForm.region1>9&&vm.ruleForm.region1<=12)||vm.ruleForm.region1===14)&&vm.ruleForm.region2===3)) {
+            $.post("/api/after/insert/course",{title:vm.formLabelAlign.name,gradeId:vm.ruleForm.region1,learnSessionId:vm.ruleForm.region2,projectId:vm.ruleForm.region3,detail:vm.textarea1,volume:vm.ruleForm.region4,videoUrl:url},function (data) {
+                if (data.code===200){
+                    alert(data.data);
+                    location.href="index3.html";
+                } else {
+                    alert(data.data);
+                }
+
+            })
+        }else {
+            alert("年级和学段不符，请您重新输入");
+        }
+        }
+    };
+
+    function uploadVidoe(vidoe) {
+        var fileObj = vidoe.files[0]; // 获取文件对象
+
+        if (fileObj != undefined) {
+
+            if (fileObj.name) {
+                console.log(fileObj.name)
+            } else {
+                alert("请选择文件");
+            }
+
+            var size = fileObj.size;
+            var type = fileObj.type;
+
+            //校验格式
+            if (type.indexOf('mp4') == -1) {
+                alert("请上传MP4格式")
+                return false;
+            }
+            //校验大小
+            if (size / 1024 / 2014 > 10) {
+                alert("请上传" + 10 + "M之内的视频")
+                return false;
+            }
+
+            var form = new FormData(); // FormData 对象
+            form.append("file", fileObj);
+            $.ajax({
+                url: "/api/after/uploadVidoe",
+                contentType: false,//false 传输对象
+                processData: false,
+                type: "POST",
+                data: form,
+                success: function (ret) {
+                    if(ret.code != undefined){
+                        if(ret.code === 200){
+                            url=ret.data;
+                        }
+                        else if(ret.resCode == '0'){
+                            alert("上传失败")
+                        }
+                    }
+                }
+            })
+
+        }
+    }
+</script>
+
+</html>

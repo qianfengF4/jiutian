@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AfterVolumeController {
     @Autowired
     AfterVolumeService volumeService;
-    @PostMapping("/api/select/volume")
+    @PostMapping("/api/after/select/volume")
     @ApiOperation(value = "查询上下册", notes = "查询上下册")
     public ResultVo selectVolume(){
         return volumeService.selectVolume();

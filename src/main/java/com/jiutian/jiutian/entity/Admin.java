@@ -10,11 +10,10 @@ import lombok.Data;
 public class Admin {
     @TableId(type = IdType.AUTO)
     private int id;
-    private int roleid;
+    private int roleId;
     private String username;
     private String password;
     private String image = "/media/image/20141219030221_QCNMA.jpg";
     private int userId;
 
-    private String userName;
 }

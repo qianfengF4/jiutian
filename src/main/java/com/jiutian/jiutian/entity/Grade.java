@@ -7,9 +7,9 @@ import lombok.Data;
 @TableName("grade")
 public class Grade {
     private int id;
-    private String title;
-    private String grade;
-    private String project;
-    private String learnSession;
+//    private String title;
+//    private String grade;
+//    private String project;
+//    private String learnSession;
     private String gradeName;
 }

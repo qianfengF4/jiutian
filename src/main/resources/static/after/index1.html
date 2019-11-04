@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>个人资料</title>
+    <link href="../media/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link href="../media/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <script src="../media/js/vue.min.js"></script>
+
+    <link href="../media/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="../media/css/base.css">
+    <script src="../media/js/element.js"></script>
+    <link rel="stylesheet" href="../media/css/element.css">
+    <script type="text/javascript" src="../media/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="../media/js/bootstrap.js"></script>
+
+</head>
+
+
+<body>
+<iframe style="position: fixed; top:0; z-index: -1;" src="https://www.jsdaima.com/js/demo/1079.html" frameborder="0" width="100%" height="100%"></iframe>
+<button style="position: fixed; top: 10px; right: 10px; border-radius: 10px;z-index: 1;" class="change">点我</button>
+<div class="wrapper" >
+
+    <div class="container_full">
+        <div class="side_bar scroll_auto" style="width: 15%">
+            <div class="user-panel">
+                <div class="user_image" style="border-radius: 50%">
+                    <img style="border-radius: 50%" src="http://b-ssl.duitang.com/uploads/item/201412/19/20141219030221_QCNMA.jpeg"/>
+                </div>
+                <div class="info" style="margin-top: 23%">
+                    <p>
+                        Alexander Pierce
+                    </p>
+                    <a href="#">
+                        <i class="fa fa-circle text-success"></i> Online</a>
+                </div>
+            </div>
+
+            <ul id="dc_accordion" class="sidebar-menu tree">
+                <li v-for="m in obj.data">
+                    <a >
+                        <i :class="m.icons" ></i><span @click="btn(m.child,m.id)" class="menu-text"  :value="m.id"> {{m.name}} </span>
+                        <b v-if="m.child.length>0"  @click="btn(m.child,m.id)" class="glyphicon glyphicon-chevron-down" style="margin-left: 35%"></b>
+                    </a>
+                    <ul class="submenu" id="dis" style="display: none">
+                        <li v-for="mc in m.child" @click="btn(mc.child,mc.id)" class="home"><a href="javascript:void(0)"  :name="mc.murl"  :title="mc.name"><i class="icon-double-angle-right"></i>{{mc.name}}</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+
+        </div>
+
+
+</div>
+</div>
+<div  id="video">
+    <div  style="margin-left:22%;margin-right: 8%;width: 70%">
+
+        <div v-for="obj" style="margin-left: 30%">
+            <div>
+            <img style="width: 200px;height: 200px;border-radius: 50%" :src="obj.image"/>
+            </div>
+           <div style="font-size: 30px;margin-top: 10px;color: #ffffff;"> 用户名：{{obj.username}}</div>
+            <div style="font-size: 30px;margin-top: 10px;color: #ffffff;" >手机号：{{obj.phoneNum}}</div>
+<!--            <div style="font-size: 30px;margin-top: 10px" >手机号：{{obj.gradeName}}</div>-->
+            <div style="font-size: 30px;margin-top: 10px;color: #ffffff;" >学段：{{obj.learnSessionName}}</div>
+            <div style="font-size: 30px;margin-top: 10px;color: #ffffff;" >学科：{{obj.projectName}}</div>
+
+            <div class="btn-group btn-group-lg" role="group" style="margin-top: 15px;margin-left: 20px">
+                <button @click="xg()" type="button" class="btn btn-dark">修改密码</button>
+            </div>
+<!--            <td class="info"></td>-->
+<!--&lt;!&ndash;            <td class="info">{{s.image}}</td>&ndash;&gt;-->
+<!--            <td class="info">{{obj.username}}</td>-->
+<!--            <td class="info">{{obj.image}}</td>-->
+<!--            <td class="info">{{obj.phoneNum}}</td>-->
+<!--            <td class="info">{{obj.realName}}</td>-->
+
+        </div>
+    </div>
+
+</div>
+
+
+
+</body>
+<script>
+    let arr = ['../after/index.html','3283','3361','3339','3323']
+    let n = 0
+    $('.change').click(function () {
+        if(n >= arr.length){
+            n = 0
+            $(this).text('最后一个')
+        }
+
+        if(n == 0){
+            $('iframe').attr('src', arr[0])
+            $(this).text('继续')
+        }else{
+            console.log(n);
+            $(this).text('点我')
+
+            let url = `https://www.jsdaima.com/js/demo/${arr[n]}.html`
+            $('iframe').attr('src', url)
+        }
+
+        n++
+
+    })
+</script>
+<script>
+
+    var menu = new Vue({
+        el: '#dc_accordion',
+        data: {
+            obj: {}
+        },
+        methods: {
+            btn(child,obj) {
+
+                if (child.length>0){
+
+                    if ($(".submenu").css("display")==="none") {
+                        $(".submenu").css("display","block");
+                    }else{
+                        $(".submenu").css("display","none");
+                    }
+
+                }else {
+                        location.href="/after/index"+obj+".html";
+                }
+
+            }
+        },
+        mounted() {
+            $.get("/api/after/menu", function (msg) {
+                menu.obj = msg;
+            })
+
+        }
+    });
+
+    var video = new Vue({
+        el: '#video',
+        data: {
+            obj: {}
+        },
+        methods: {
+            xg() {
+                location.href="xg.html";
+            }
+        },
+        mounted() {
+            $.post("/api/after/select/admin",{},function (msg) {
+                video.obj=msg.data;
+
+            })
+        }
+    });
+
+</script>
+</html>

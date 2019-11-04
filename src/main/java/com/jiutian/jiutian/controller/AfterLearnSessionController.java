@@ -15,7 +15,7 @@ public class AfterLearnSessionController {
 
     @Autowired
     AfterLearnSessionService learnSessionService;
-    @PostMapping("/api/select/learnSession")
+    @PostMapping("/api/after/select/learnSession")
     @ApiOperation(value = "查询所有学段", notes = "查询所有学段")
     public ResultVo selectLearnSession(){
         return learnSessionService.selectLearnSession();

@@ -1,0 +1,149 @@
+.head .mynavbar {
+  position: relative;
+  z-index: 99;
+  height: 60px;
+}
+.head .mynavbar .container-fluid {
+  background-color: #2D3E50;
+}
+.head .mynavbar .mynavbar-header .navbar-brand {
+  width: 230px;
+  position: relative;
+}
+.head .mynavbar .mynavbar-header .navbar-brand img {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
+  transform: scale(2);
+}
+.head .mynavbar .mynavbar-header .navbar-brand span {
+  position: absolute;
+  top: 10px;
+  left: 75px;
+  font-family: '楷体';
+  color: white;
+  font-size: 14px;
+}
+.head .mynavbar .mycollapse .mynav li a {
+  height: 50px;
+}
+.head .mynavbar .mycollapse .mynav li a span {
+  vertical-align: bottom;
+  line-height: 16px;
+  font-size: 16px;
+  color: white;
+  display: block;
+  padding-top: 6px;
+}
+.head .mynavbar .mycollapse .mynav li:nth-child(8) a span {
+  color: yellow;
+  padding-top: 0px;
+}
+.head .mynavbar .mycollapse .myuser .glyphicon-user {
+  position: relative;
+  right: 15px;
+}
+.head .mynavbar .mycollapse .navbar-form {
+  line-height: 40px;
+}
+.head .mynavbar .mycollapse .navbar-form input {
+  border-radius: 20px;
+  width: 100px;
+}
+.head .mynavbar .mycollapse .navbar-form span {
+  position: relative;
+  top: 2px;
+  left: -19px;
+}
+li {
+  list-style: none;
+}
+.main .container {
+  height: 1000px;
+  border: 1px solid rosybrown;
+}
+.main .container .myleft1 {
+  border-right: 1px solid rosybrown;
+}
+.main .container .myleft1 ul {
+  padding-left: 0px;
+}
+.main .container .myleft1 ul li {
+  padding-top: 10px;
+  text-align: center;
+}
+.main .container .myleft1 ul li img {
+  width: 178px;
+  height: 153px;
+}
+.main .container .myleft1 ul li b {
+  font-size: 24px;
+}
+.main .container .myright ul {
+  padding-left: 0px;
+}
+.main .container .myright ul li {
+  padding-top: 10px;
+  text-align: left;
+}
+.main .container .myright ul li img {
+  margin-left: 80px;
+  width: 178px;
+  height: 153px;
+}
+.main .container .myright ul li b {
+  color: coral;
+  font-size: 24px;
+}
+.main .container .myright ul li span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  top: -210px;
+  left: 260px;
+  padding: 10px;
+  border: 1px solid orange;
+  box-shadow: 5px 5px 5px black;
+}
+.main .container .myright ul li p {
+  margin-left: 50px;
+  padding-top: 80px;
+  padding-left: 210px;
+  height: 210px;
+  background-image: url(../img/people.png);
+  background-repeat: no-repeat;
+  background-size: 210px;
+}
+.main .container .myright ul li p b {
+  font-size: 16px;
+}
+.main .container .myright ul .form {
+  position: relative;
+  left: 50%;
+  top: -60px;
+  transform: translateX(-50%);
+  width: 90%;
+  height: 500px;
+  background-color: #F8F8F8;
+}
+.main .container .myright ul .form ul {
+  width: 60%;
+  height: 500px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.main .container .myright ul .form ul li {
+  padding-top: 15px;
+}
+.main .container .myright ul .form ul li input {
+  border: 1px solid black;
+}
+.main .container .myright ul .form ul li:last-child {
+  text-align: center;
+}
+.main .container .myright ul .form ul li:last-child input {
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: gold;
+}

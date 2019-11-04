@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AfterGradeController {
     @Autowired
     AfterGradeService gradeService;
-    @PostMapping("/api/select/grade")
+    @PostMapping("/api/after/select/grade")
     @ApiOperation(value = "查询所有年级信息", notes = "查询所有年级信息")
     public ResultVo selectGrade(){
 

@@ -18,12 +18,9 @@ public class AreaServiceImpl extends ServiceImpl<AreaDao, Area> implements AreaS
     AreaDao areaDao;
 
 
-   // JedisClient jedisClient;
 
     @Autowired
     RedisUtil redisUtil;
-
-    RedisTemplate redisTemplate;
 
 
     @Override
@@ -36,7 +33,7 @@ public class AreaServiceImpl extends ServiceImpl<AreaDao, Area> implements AreaS
             System.out.println("从redis里面取province");
             list = JsonUtils.jsonToList(area, Area.class);
         }else {
-            System.out.println("从数据库区ProVic");
+            System.out.println("从数据库取ProVic");
             list=areaDao.getProvince();
             redisUtil.set("province", JsonUtils.objectToJson(list));
         }

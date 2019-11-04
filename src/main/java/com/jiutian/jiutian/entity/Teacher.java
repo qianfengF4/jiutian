@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class Teacher implements Serializable {
 
-    int id;
-    String teacherName;
+    private int id;
+    private String teacherName;
 
 
 

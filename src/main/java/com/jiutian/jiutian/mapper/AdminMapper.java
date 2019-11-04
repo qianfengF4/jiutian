@@ -2,6 +2,7 @@ package com.jiutian.jiutian.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jiutian.jiutian.entity.Admin;
+import com.jiutian.jiutian.entity.User;
 import com.jiutian.jiutian.parameterVo.AdminVo;
 
 import com.jiutian.jiutian.resultVo.AdminRVo;
@@ -25,15 +26,15 @@ public interface AdminMapper extends BaseMapper<Admin> {
 
     @Select("select a.id,a.username,a.image,u.phone_num,u.id,u.real_name,g.grade_name,p.project_name,ls.learn_session_name" +
             " from admin a , user u,grade g,project p,learn_session ls " +
-            "where a.userid=u.id and g.id=u.grade_id and p.id = u.project_id " +
-            "and ls.id = u.learning_session_id and a.userid=#{id}")
+            "where a.user_id=u.id and g.id=u.grade_id and p.id = u.project_id " +
+            "and ls.id = u.learning_session_id and a.user_id=#{id}")
     AdminRVo selectAdminById(int id);
 
     @Update("update admin set password=#{password} where id=#{id} ")
     void updataPasswordByAdminId(int id, String password);
 
 
-    @Insert("insert into jiutian.admin(username, password, image, userid, roleid) VALUES " +
+    @Insert("insert into jiutian.admin(username, password, image, user_id, role_id) VALUES " +
             "(#{mname}, #{password}, #{image}," +
             " #{id}, #{roleId})")
     @ResultType(int.class)

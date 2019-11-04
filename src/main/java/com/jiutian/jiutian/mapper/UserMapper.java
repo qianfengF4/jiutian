@@ -1,7 +1,7 @@
 package com.jiutian.jiutian.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.jiutian.jiutian.entity.Permission;
+
 import com.jiutian.jiutian.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.ResultType;

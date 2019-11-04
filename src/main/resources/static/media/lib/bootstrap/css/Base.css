@@ -1,0 +1,44 @@
+@CHARSET "UTF-8";
+/*公共样式  By Cx*/
+.fl{ float: left;}
+.fr{ float: right;}
+/*margin-top*/
+.mt5{ margin-top: 5px;}
+.mt8{ margin-top: 8px;}
+.mt10{ margin-top: 10px;}
+.mt15{ margin-top: 15px;}
+.mt18{ margin-top: 18px;}
+.mt20{ margin-top: 20px;}
+.mt30{ margin-top: 30px;}
+.mt40{ margin-top: 40px;}
+.mt50{ margin-top: 50px;}
+/*margin-right*/
+.mr5{ margin-right: 5px;}
+.mr8{ margin-right: 8px;}
+.mr10{ margin-right: 10px;}
+.mr15{ margin-right: 15px;}
+.mr18{ margin-right: 18px;}
+.mr20{ margin-right: 20px;}
+.mr30{ margin-right: 30px;}
+.mr40{ margin-right: 40px;}
+.mr50{ margin-right: 50px;}
+/*margin-bottom*/
+.mb5{ margin-bottom: 5px;}
+.mb8{ margin-bottom: 8px;}
+.mb10{ margin-bottom: 10px;}
+.mb15{ margin-bottom: 15px;}
+.mb18{ margin-bottom: 18px;}
+.mb20{ margin-bottom: 20px;}
+.mb30{ margin-bottom: 30px;}
+.mb40{ margin-bottom: 40px;}
+.mb50{ margin-bottom: 50px;}
+/*margin-left*/
+.ml5{ margin-left: 5px;}
+.ml8{ margin-left: 8px;}
+.ml10{ margin-left: 10px;}
+.ml15{ margin-left: 15px;}
+.ml18{ margin-left: 18px;}
+.ml20{ margin-left: 20px;}
+.ml30{ margin-left: 30px;}
+.ml40{ margin-left: 40px;}
+.ml50{ margin-left: 50px;}

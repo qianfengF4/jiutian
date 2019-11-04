@@ -16,7 +16,12 @@
     <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
     <![endif]-->
+<!--    <link rel="stylesheet" href="/media/css/css.css">-->
+    <link href="/media/css/video-js.css" rel="stylesheet" type="text/css">
+
     <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="/media/js/video.js"></script>
+    <script src="/media/js/vue.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-inverse" role="navigation" style="margin-bottom: 0px;">
@@ -37,13 +42,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
             <ul class="nav navbar-nav">
-                <li><a href="index.html">首页</a></li>
-                <li><a href="xingquketang.html">兴趣课堂</a></li>
-                <li><a href="">点课吧</a></li>
-                <li><a href="">中高考微课</a></li>
-                <li><a href="synchronousCourse.html" class="active">同步课程</a></li>
-                <li><a href="">管理中心</a></li>
-                <li><a href="">更多应用</a></li>
+                <li><a href="/index.html">首页</a></li>
+                <li><a href="/before/xingquketang.html">兴趣课堂</a></li>
+                <li onclick="gengduo()"><a href="">点课吧</a></li>
+                <li onclick="gengduo()"><a href="">中高考微课</a></li>
+                <li><a href="/before/synchronousCourse.html?id=7" class="active">同步课程</a></li>
+                <li><a href="/after/login.html">管理中心</a></li>
+                <li onclick="gengduo()"><a href="">更多应用</a></li>
             </ul>
 
 
@@ -53,7 +58,7 @@
                 <li><a href=""><span class="glyphicon glyphicon-search form-control-feedback"
                                      style="margin-left: 100px;margin-top: 10px;padding-right: 55px"></span></a></li>
 
-                <li><a href="#"><span class="glyphicon glyphicon-user">&nbsp;个人中心</span></a></li>
+                <li onclick="gerenzhongxin()"><a href="#"><span class="glyphicon glyphicon-user">&nbsp;个人中心</span></a></li>
 
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -66,24 +71,44 @@
 
             <div class="col-md-3" style="width: 212px;height: 220px;padding: 0px">
                 <div style="width: 212px;height: 44px;background-color: #E8E8E8;color: #000000;text-align: center;padding-top: 5px"><strong style="font-size: 17px;font-family: 微软雅黑">年级</strong></div>
-                <div style="padding-left: 13.5px;padding-right: 13.5px;padding-top: 8px;padding-bottom: 42px;width: 212px;height: 158px;background-color: #FFFFFF;"></div>
+
+                <div style="padding-left: 13.5px;padding-right: 13.5px;padding-top: 8px;padding-bottom: 42px;width: 212px;height: 158px;background-color: #FFFFFF;">
+                    <span style="padding-left: 10px;padding-bottom: 5px;">一年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">二年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">三年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">四年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">五年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">六年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">七年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">八年级</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">九年级</span>
+                </div>
 
                 <div style="width: 212px;height: 44px;background-color: #E8E8E8;color: #000000;text-align: center;padding-top: 5px"><strong style="font-size: 17px;font-family: 微软雅黑">科目</strong></div>
-                <div style="padding-left: 13.5px;padding-right: 13.5px;padding-top: 8px;padding-bottom: 42px;width: 212px;height: 158px;background-color: #FFFFFF;"></div>
+                <div style="padding-left: 13.5px;padding-right: 13.5px;padding-top: 8px;padding-bottom: 42px;width: 212px;height: 158px;background-color: #FFFFFF;">
+                    <span style="padding-left: 10px;padding-bottom: 5px;">语文</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">数学</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">英语</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">物理</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">化学</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">体育</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">生物</span>
+                    <span style="padding-left: 10px;padding-bottom: 5px;">信息</span>
+                </div>
             </div>
             <div class="col-md-9">
                 <div style="background-color: #FFFFFF;width: 770px;height: 327px;padding: 40px 34px 18px 34px;">
                     <div class="row">
-                    <div class="col-md-6">
-                        <img style="width: 360px;height: 268px" src="http://www.gdedu.tv/images/neiye/pic.jpg" alt="">
-                    </div>
+                        <div class="col-md-6">
+                            <img style="width: 360px;height: 268px" src="http://www.gdedu.tv/images/neiye/pic.jpg" alt="">
+                        </div>
 
-                    <div class="col-md-6">
-                        <dl style="width: 293px;height: 160px;padding: 10px">
-                            <dt style="width: 293px;height: 36px">观潮</dt>
-                            <dd style="width: 293px;height: 36px">授课老师：</dd>
-                            <dd style="width: 293px;height: 36px">年级：</dd>
-                            <dd style="width: 293px;height: 36px">科目：</dd>
+                        <div class="col-md-6" id="xc">
+                        <dl style="width: 293px;height: 160px;padding: 10px" v-for="obj">
+                            <dt style="width: 293px;height: 36px">{{obj.title}}</dt>
+                            <dd style="width: 293px;height: 36px">授课老师：{{obj.teacherName}}</dd>
+                            <dd style="width: 293px;height: 36px">年级：{{obj.gradeName}}</dd>
+                            <dd style="width: 293px;height: 36px">科目：{{obj.projectName}}</dd>
                         </dl>
 
                         <button type="button" class="btn btn-warning" style="width: 152px;height: 48px;margin-top: 40px;margin-left: 10px">播放</button>
@@ -183,4 +208,52 @@
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 </body>
+<script>
+    $.getUrlParam = function (name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    };
+    var xc = new Vue({
+        el: '#xc',
+        data: {
+            obj: {}
+        },
+        methods: {
+        },
+        mounted() {
+            $.get("/api/select/courseXCById?id="+$.getUrlParam('id'),function (msg) {
+                xc.obj=msg.data;
+
+            })
+        }
+    });
+
+    function gerenzhongxin() {
+        if (typeof(Storage) !== "undefined") {
+            // 存储
+            token = localStorage.getItem("token");
+            username = localStorage.getItem("username");
+        } else {
+            token = $.cookie("token");
+            username = $.cookie("username");
+
+        }
+        if (token != null&&username !=null) {
+            $.post("/api/isLogin.do", {username: username, token: token}, function (data) {
+                if (data.code === 200) {
+                    location.href = "/before/personal_center.html";
+                } else {
+                    location.href = "/before/login.html";
+                }
+            })
+        }else {
+            location.href="/before/login.html";
+        }
+    };
+    function gengduo() {
+        alert("暂无更多应用，团队正在努力开发中，敬请期待");
+    };
+</script>
 </html>

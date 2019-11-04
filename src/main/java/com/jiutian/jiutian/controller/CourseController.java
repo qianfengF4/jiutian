@@ -2,11 +2,11 @@ package com.jiutian.jiutian.controller;
 
 
 import com.jiutian.jiutian.entity.Course;
+import com.jiutian.jiutian.resultVo.ResultVo;
 import com.jiutian.jiutian.service.CourseService;
-import com.jiutian.jiutian.vo.ResultVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.log4j.Log4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -102,9 +102,9 @@ public class CourseController {
 
     @PostMapping("/api/course/selectCourseByLearnSessionIdDesc")
     @ApiOperation(value = "最热降序根据学段id展示课程信息")
-    public ResultVo selectCourseByLearnSessionIdDesc(Model model,Integer learnSessionId) {
+    public ResultVo selectCourseByLearnSessionIdDesc(Integer learnSessionId) {
 
-        List<Course> courseList4 = courseService.selectCourseByLearnSessionIdDesc(learnSessionId, model);
+        List<Course> courseList4 = courseService.selectCourseByLearnSessionIdDesc(learnSessionId);
 
         System.out.println("最热降序根据学段id展示课程信息：" + courseList4 );
 
@@ -118,9 +118,9 @@ public class CourseController {
 
     @PostMapping("/api/course/selectCourseByTimeDesc")
     @ApiOperation(value = "根据创建时间降序展示课程信息")
-    public ResultVo selectCourseByTimeDesc(Model model) {
+    public ResultVo selectCourseByTimeDesc() {
 
-        List<Course> courseList5 = courseService.selectCourseByTimeDesc(model);
+        List<Course> courseList5 = courseService.selectCourseByTimeDesc();
 
         System.out.println("根据创建时间降序展示课程信息：" + courseList5 );
 
@@ -134,9 +134,9 @@ public class CourseController {
 
     @PostMapping("/api/course/selectCourseBySessionIdTimeDesc")
     @ApiOperation(value = "根据学段id选出来之后进行时间降序展示课程信息")
-    public ResultVo selectCourseBySessionIdTimeDesc(Integer learnSessionId,Model model) {
+    public ResultVo selectCourseBySessionIdTimeDesc(Integer learnSessionId) {
 
-        List<Course> courseList6 = courseService.selectCourseByLearnSessionIdTimeDesc(learnSessionId,model);
+        List<Course> courseList6 = courseService.selectCourseByLearnSessionIdTimeDesc(learnSessionId);
 
         System.out.println("根据学段id选出来之后进行时间降序展示课程信息：" + courseList6 );
 
@@ -146,6 +146,13 @@ public class CourseController {
         }
         return ResultVo.setError("失败");
 
+    }
+
+    @GetMapping("/api/select/courseXCById")
+    @ApiOperation(value = "通过id删除课程", notes = "通过id删除课程")
+    public ResultVo selectCourseXCById(int id){
+
+        return courseService.selectCourseXCById(id) ;
     }
 
 }

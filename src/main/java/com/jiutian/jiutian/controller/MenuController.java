@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class MenuController {
     @Autowired
     MenuService menuService;
-    @GetMapping("/menu")
+    @GetMapping("/api/after/menu")
     @ApiOperation(value = "权限查询左菜单", notes = "权限查询左菜单")
     public ResultVo queryMenu(){
 
         return  menuService.queryMenu();
     }
 
-    @PostMapping("/menu/select")
+    @PostMapping("/api/after/menu/select")
     @ApiOperation(value = "查询用户的课程视频", notes = "查询用户的课程视频")
     public ResultVo select(int id){
         return  menuService.select(id);

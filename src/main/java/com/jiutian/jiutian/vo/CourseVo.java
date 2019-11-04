@@ -1,9 +1,9 @@
 package com.jiutian.jiutian.vo;
 
-import com.jiutian.jiutian.entity.Grade;
+
 import lombok.Data;
 
-import java.util.List;
+
 @Data
 public class CourseVo {
     private int id;
@@ -14,4 +14,7 @@ public class CourseVo {
     private String creatData;
     private String detail;
     private String image;
+    private int teacherId;
+    private String teacherName;
+    private String videoUrl;
 }

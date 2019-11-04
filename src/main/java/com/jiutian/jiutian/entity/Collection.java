@@ -10,9 +10,9 @@ import lombok.Data;
 public class Collection {
 
     @TableId(type = IdType.AUTO)
-    int id;
-    String courseId;
-    String infoId;
+    private int id;
+    private String courseId;
+    private String infoId;
 
 
 

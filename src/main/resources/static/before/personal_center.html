@@ -7,76 +7,71 @@
 		<!-- 图标 -->
 		<link rel="shortcut icon" type="image/x-icon" href="../brand.ico"/>
 		<!-- 初始化样式 -->
-		<link rel="stylesheet" href="media/css/base.css">
+		<link rel="stylesheet" href="/media/lib/bootstrap/css/base.css">
 		<!-- bootstrap样式 -->
-		<link rel="stylesheet" type="text/css" href="../media/lib/bootstrap/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="/media/lib/bootstrap/css/bootstrap.css"/>
 		<!-- html兼容文件 -->
 		<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 				<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
 				<!--[if lt IE 9]>
 		      <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
-		      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
-
-		<!-- 引入js文件 -->
-		<!-- jq -->
-		<script src="../media/lib/jquery/jquery.min.js"></script>
-		<script src="../media/lib/bootstrap/js/bootstrap.min.js"></script>
-		<script src="../media/js/vue.min.js"></script>
+		      <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>-->
+		<script src="/media/lib/jquery/jquery.js"></script>
+		<script src="/media/lib/bootstrap/js/bootstrap.js"></script>
+		<script src="/media/js/vue.min.js"></script>
 		    <![endif]-->
 
 		<!-- 引入本页css -->
-		<link rel="stylesheet" type="text/css" href="../media/css/personal_center.css"/>
+		<link rel="stylesheet" type="text/css" href="/media/css/personal_center.css"/>
 		<title>个人中心</title>
 	</head>
 	<body>
-		<div class="head">
-			<nav class="mynavbar navbar navbar-default">
-				<!-- 流动容器 -->
-			  <div class="container-fluid">
-			    <!-- Brand and toggle get grouped for better mobile display -->
-			    <div class="mynavbar-header navbar-header">
-					<!-- 手风琴样式 -->
-			      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			        <span class="sr-only">Toggle navigation</span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			        <span class="icon-bar"></span>
-			      </button>
-			      <a class=" navbar-brand" href="#"><img src="../brand.ico" ><span >广东教育视频网<br>http://www.gdedu.tv</span></a>
-			    </div>
-			
-			    <!-- Collect the nav links, forms, and other content for toggling -->
-			    <div class="mycollapse collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			      <ul class="mynav nav navbar-nav">
-						<li><a href="###"><span>首页</span></a></li>
-						<li><a href="###"><span>兴趣课堂</span></a></li>
-						<li><a href="###"><span>点课吧</span></a></li>
-						<li><a href="###"><span>中高考微课</span></a></li>
-						<li><a href="###"><span>同步课程</span></a></li>
-						<li><a href="###"><span>亲子视频</span></a></li>
-						<li><a href="###"><span>校园影视</span></a></li>
-						<li><a href="###"><span>一师一优客<br>一课一名师</span></a></li>
-						<li><a href="###"><span>更多应用</span></a></li>
-			      </ul>
-				  <ul class="myuser mynav nav navbar-nav navbar-right">
-				  		<li><a href="###"><span class="glyphicon glyphicon-search glyphicon glyphicon-user" aria-hidden="true"> 个人中心</span></a></li>
-				  </ul>
-			      <form class="navbar-form navbar-right">
-			        <div class="form-group">
-			          <input type="text" class="form-control " placeholder="搜索"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-			        </div>
-			      </form>
+	<nav class="navbar navbar-inverse" role="navigation" style="margin-bottom: 0px;">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<img src="../media/img/logo.png" width="267" height="49">
+			</div>
 
-			    </div><!-- /.navbar-collapse -->
-			  </div><!-- /.container-fluid -->
-			</nav>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+				<ul class="nav navbar-nav">
+					<li><a href="/index.html">首页</a></li>
+					<li><a href="/before/xingquketang.html" class="active">兴趣课堂</a></li>
+					<li onclick="gengduo()"><a href="">点课吧</a></li>
+					<li onclick="gengduo()"><a href="">中高考微课</a></li>
+					<li><a href="/before/synchronousCourse.html?id=7">同步课程</a></li>
+					<li><a href="/after/login.html">管理中心</a></li>
+					<li onclick="gengduo()"><a href="">更多应用</a></li>
+				</ul>
+
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><input type="text" class="form-control" placeholder="搜索"
+							   style="border-radius: 30px;width: 120px;margin-top: 8px"></li>
+					<li><a href=""><span class="glyphicon glyphicon-search form-control-feedback"
+										 style="margin-left: 100px;margin-top: 10px;padding-right: 55px"></span></a></li>
+
+					<li onclick="gerenzhongxin()"><a href="#"><span class="glyphicon glyphicon-user">&nbsp;个人中心</span></a></li>
+
+				</ul>
+			</div><!-- /.navbar-collapse -->
 		</div>
+	</nav>
 		<div class="main">
 			<div class="container">
 				<div class="row">
 				  <div class="myleft1 col-xs-3">
 					  <ul>
-					  	<li><img src="../media/img/people.png" ></li>
+					  	<li><img src="/media/img/people.png" ></li>
 						<li>冰哥最帅</li>
 						<hr >
 						<li>
@@ -112,15 +107,15 @@
 						<hr>
 						<li>
 							<div class="xx">
-								 <form id="upload_form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/user/upLoadImage" >
-								<p>
-									仅支持JPG、JPRG、PNG格式,文件小于4M
-									<br>
-									<b>(使用高质量图片，可生成高清图像)</b>
-									<br>
-									<input type="file" onclick="inputImage()" class="glyphicon glyphicon-plus" aria-hidden="true"></input>
-									<input style="margin-top: 10px;margin-left: 20px" type="submit" value="上传">
-								</p>
+								<form id="upload_form" enctype="multipart/form-data" method="post" action="/user/upLoadImage" >
+									<p>
+										仅支持JPG、JPRG、PNG格式,文件小于4M
+										<br>
+										<b>(使用高质量图片，可生成高清图像)</b>
+										<br>
+										<input type="file" name="image_file" id="image_file" onclick="inputImage()" class="glyphicon glyphicon-plus" aria-hidden="true"></input>
+										<input style="margin-top: 10px;margin-left: 20px" type="submit" value="上传">
+									</p>
 								</form>
 								<!-- 冰：添加图片 -->
 
@@ -173,7 +168,7 @@
 										</select>
 									</li>
 									<li>
-										年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;纪：
+										年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：
 										<select v-model="gradeId">
 										    <option v-for="ob in grade" :value="ob.id">{{ob.gradeName}}</option>
 										</select>
@@ -188,9 +183,6 @@
 			</div>
 		</div>
 		<script type="text/javascript">
-			function inputImage() {
-
-			}
 			var info = new Vue({
 				el:'#info',
 				data:{
@@ -225,13 +217,13 @@
 						$("#c1").attr("disabled",false)
 						$("#c2").attr("disabled",false)
 						alert("updata"+info.provinceId)
-						$.get("../user/showCity/",{id:info.provinceId},function (data) {
+						$.get("/user/showCity/",{id:info.provinceId},function (data) {
 							alert("city")
 							info.city=data;
 						})
 					},
 					getCountry:function (val) {
-						$.get("../user/showCounty/",{id:info.cityId},function (data) {
+						$.get("/user/showCounty/",{id:info.cityId},function (data) {
 							alert("country")
 							info.country=data;
 						})
@@ -254,7 +246,7 @@
 						this.grade2 = this.gradeId;
 
 						alert(this.city2+","+this.mname2+","+this.sex2+","+this.realName2);
-						$.post("../user/updateUser2",{"id":this.obj.id2,"realName":this.obj.realName2,
+						$.post("/user/updateUser2",{"id":this.obj.id2,"realName":this.obj.realName2,
 							"phone":this.obj.phoneNum2,"mname":this.obj.mname2,"sex":this.sex2,"cityId":this.city2,
 							"provinceId":this.province2,"countrysideId":this.country2,"gradeId":this.grade2},function (data) {
 							alert(data.msg);
@@ -263,8 +255,11 @@
 
 				},
 				mounted:function () {
+					$.get("../user/showMyProfile",function (data) {
+						$(".xx p").css("background-image","url("+data.data.image+")")
+					})
 
-					$.get("../user/allInfo/",function (data) {
+					$.get("/user/allInfo/",function (data) {
 						info.provinceId=data.provinceId;
 						info.cityId=data.cityId;
 						info.countryId=data.countrysideId;
@@ -280,24 +275,24 @@
 					//
 					// })
 
-					$.get("../user/showProvince/",function (data) {
+					$.get("/user/showProvince/",function (data) {
 
 						info.province=data;
 
 					})
-					$.get("../user/allCountry/",function (data) {
+					$.get("/user/allCountry/",function (data) {
 
 						info.country=data;
 
 					})
-					$.get("../user/showAllCity/",function (data) {
+					$.get("/user/showAllCity/",function (data) {
 
 						info.city=data;
 
 					})
 
 
-					$.get("../user/allGrade/",function (data) {
+					$.get("/user/allGrade/",function (data) {
 
 						info.grade=data;
 
@@ -305,7 +300,10 @@
 
 				},
 
-			})
+			});
+			function gengduo() {
+				alert("暂无更多应用，团队正在努力开发中，敬请期待");
+			}
 		</script>
 	</body>	
 </html>

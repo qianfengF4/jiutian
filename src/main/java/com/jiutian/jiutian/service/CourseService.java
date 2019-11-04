@@ -1,7 +1,8 @@
 package com.jiutian.jiutian.service;
 
 import com.jiutian.jiutian.entity.Course;
-import com.jiutian.jiutian.vo.ResultVo;
+import com.jiutian.jiutian.resultVo.ResultVo;
+
 
 import java.util.List;
 
@@ -29,10 +30,11 @@ public interface CourseService {
 
     ResultVo selectCourseById(int id);
 
-    List <Course> selectCourseByLearnSessionIdDesc(Integer learnSessionId,Model model);
+    List <Course> selectCourseByLearnSessionIdDesc(Integer learnSessionId);
 
-    List <Course> selectCourseByTimeDesc(Model model);
+    List <Course> selectCourseByTimeDesc();
 
-    List <Course> selectCourseByLearnSessionIdTimeDesc(Integer learnSessionId,Model model);
+    List <Course> selectCourseByLearnSessionIdTimeDesc(Integer learnSessionId );
 
+    ResultVo selectCourseXCById(int id);
 }

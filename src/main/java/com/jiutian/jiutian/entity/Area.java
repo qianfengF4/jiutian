@@ -12,8 +12,8 @@ import java.io.Serializable;
 public class Area implements Serializable {
 
     @TableId(type = IdType.AUTO)
-    int id;
-    String name;
-    int parentId;
-    int level;
+    private int id;
+    private String name;
+    private int parentId;
+    private int level;
 }
